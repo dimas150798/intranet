@@ -60,6 +60,7 @@ class Add_StockKeluarATK extends CI_Controller
             $tanggal                = $this->input->post('tanggal');
             $id_pegawai             = $this->input->post('pegawai');
             $keterangan             = $this->input->post('keterangan');
+            $kode_barang            = $this->input->post('kode_barang');
             $id_status              = 13;
 
             // Stock Gudang
@@ -69,11 +70,13 @@ class Add_StockKeluarATK extends CI_Controller
 
             $dataStockKeluar = array(
                 'id_stockBarang'    => $id_stockBarang,
+                'kode_barang'       => $kode_barang,
                 'jumlah'            => $jumlah,
                 'tanggal'           => $tanggal,
                 'id_pegawai'        => $id_pegawai,
                 'id_status'         => $id_status,
-                'keterangan'        => $keterangan
+                'keterangan'        => $keterangan,
+                'non_modem'         => "Yes"
             );
 
             $dataStockGudang = array(

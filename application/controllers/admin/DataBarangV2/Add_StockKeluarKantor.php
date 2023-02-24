@@ -79,11 +79,13 @@ class Add_StockKeluarKantor extends CI_Controller
 
             $dataStockKeluar = array(
                 'id_stockBarang'    => $id_stockBarang,
+                'kode_barang'       => $kode_barang,
                 'jumlah'            => $jumlah,
                 'tanggal'           => $tanggal,
                 'id_pegawai'        => $id_pegawai,
                 'id_status'         => $id_status,
-                'keterangan'        => $keterangan
+                'keterangan'        => $keterangan,
+                'non_modem'         => "Yes"
             );
 
             $dataStockGudang = array(
@@ -95,6 +97,7 @@ class Add_StockKeluarKantor extends CI_Controller
             $dataStockRincian = array(
                 'tanggal'           => $tanggal,
                 'id_status'         => $id_status,
+                'id_pegawai'        => $id_pegawai
             );
 
             $where = array(
@@ -116,7 +119,7 @@ class Add_StockKeluarKantor extends CI_Controller
                 if ($kode_barang == null && $kode_barang == 0) {
                     echo "
                     <script>
-                    alert('Detail Barang Belum Di input');history.go(-1)
+                    alert('Stock Barang Kosong');history.go(-1)
                     document.location.href = 'tambahData';            
                     </script>
                     ";

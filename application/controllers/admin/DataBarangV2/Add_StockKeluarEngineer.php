@@ -65,6 +65,7 @@ class Add_StockKeluarEngineer extends CI_Controller
             $id_pegawai             = $this->input->post('pegawai');
             $keterangan             = $this->input->post('keterangan');
             $id_barang              = $this->input->post('id_barang');
+            $kode_barang            = $this->input->post('kode_barang');
             $id_status              = 13;
 
             $checkKodeBarang = $this->BarangModelV2->getKodeBarang($id_barang);
@@ -79,11 +80,13 @@ class Add_StockKeluarEngineer extends CI_Controller
 
             $dataStockKeluar = array(
                 'id_stockBarang'    => $id_stockBarang,
+                'kode_barang'       => $kode_barang,
                 'jumlah'            => $jumlah,
                 'tanggal'           => $tanggal,
                 'id_pegawai'        => $id_pegawai,
                 'id_status'         => $id_status,
-                'keterangan'        => $keterangan
+                'keterangan'        => $keterangan,
+                'non_modem'         => "Yes"
             );
 
             $dataStockGudang = array(

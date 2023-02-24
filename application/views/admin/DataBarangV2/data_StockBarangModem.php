@@ -11,20 +11,16 @@
    <main>
 
       <div class="container">
-         <h4 class="mt-4" style="margin-left: 5px; margin-right: 5px;">Peralatan Modem</h4>
+         <h4 class="mt-4" style="margin-left: 5px; margin-right: 5px;">Peralatan Aktivasi</h4>
          <ol class="breadcrumb" style="margin-left: 5px; margin-right: 5px;">
             <li class="breadcrumb-item"><a href="#">Data Barang Gudang</a></li>
             <li class="breadcrumb-item active">Tables</li>
          </ol>
 
-         <a class="btn btn-success mb-3"
-            href="<?php echo base_url('admin/DataBarangV2/Add_StockBarang') ?>"><i
-               class="bi bi-plus-circle"></i> Tambah Data</a>
-
          <div class="card mb-3">
             <div id="kwitansiClose" class="card-header">
                <i class="fas fa-table me-1"></i>
-               Data Peralatan Modem <br>
+               Data Peralatan Aktivasi <br>
                <h5 class="text-center font-weight-light mt-2 mb-2">
                   <?php echo $this->session->flashdata('pesan'); ?>
                </h5>
@@ -79,15 +75,27 @@
                         }?>
                         </td>
 
-
                         <td class="text-center">
-                           <a class="btn btn-sm btn-warning"
-                              href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianModem/addStockRincian/' . $data['id_stockBarang']) ?>"><i
-                                 class="bi bi-clipboard2-plus-fill"></i></a>
-                           <a class="btn btn-sm btn-primary"
-                              href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarModem/addStockKeluar/' . $data['id_barang']) ?>"><i
-                                 class="bi bi-dash-lg"></i></a>
+                           <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-info dropdown-toggle"
+                                 data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false"
+                                 aria-controls="dropdown">
+                                 Opsi
+                              </button>
+                              <div class="dropdown-menu text-black" style="background-color:aqua;">
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianModem/addStockRincian/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-clipboard2-plus-fill"></i> Detail Barang</a>
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarModem/addStockKeluar/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-dash-lg"></i> Keluar Modem</a>
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarNonModem/addStockKeluar/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-dash-lg"></i> Keluar Non Modem</a>
+                              </div>
                         </td>
+
+
 
                      </tr>
                      <?php endforeach; ?>

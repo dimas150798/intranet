@@ -11,20 +11,16 @@
    <main>
 
       <div class="container">
-         <h4 class="mt-4" style="margin-left: 5px; margin-right: 5px;">Peralatan Pelanggan</h4>
+         <h4 class="mt-4" style="margin-left: 5px; margin-right: 5px;">Peralatan Distribusi</h4>
          <ol class="breadcrumb" style="margin-left: 5px; margin-right: 5px;">
             <li class="breadcrumb-item"><a href="#">Data Barang Gudang</a></li>
             <li class="breadcrumb-item active">Tables</li>
          </ol>
 
-         <a class="btn btn-success mb-3"
-            href="<?php echo base_url('admin/DataBarangV2/Add_StockBarang') ?>"><i
-               class="bi bi-plus-circle"></i> Tambah Data</a>
-
          <div class="card mb-3">
             <div id="kwitansiClose" class="card-header">
                <i class="fas fa-table me-1"></i>
-               Data Peralatan Pelanggan <br>
+               Data Peralatan Distribusi <br>
                <h5 class="text-center font-weight-light mt-2 mb-2">
                   <?php echo $this->session->flashdata('pesan'); ?>
                </h5>

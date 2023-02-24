@@ -78,12 +78,12 @@
 											Opsi
 										</button>
 										<div class="dropdown-menu text-black" style="background-color:aqua;">
-											<a class="dropdown-item text-black"
+											<!-- <a class="dropdown-item text-black"
 												href="<?php echo base_url('admin/DataBarangV2/Edit_StockRincian/editData/' . $data['id_stockRincian']) ?>"><i
-													class="bi bi-pencil-square"></i> Edit</a>
+												class="bi bi-pencil-square"></i> Edit</a> -->
 											<a onclick="return confirm('Yakin Menghapus Data')"
 												class="dropdown-item text-black"
-												href="<?php echo base_url('admin/DataBarangV2/Data_StockRincian/deleteData/' . $data['id_stockRincian']) ?>"><i
+												href="<?php echo base_url('admin/DataBarangV2/Data_StockRincianNonModem/deleteData/' . $data['id_stockRincian']) ?>"><i
 													class="bi bi-trash3-fill"></i> Hapus</a>
 										</div>
 								</td>

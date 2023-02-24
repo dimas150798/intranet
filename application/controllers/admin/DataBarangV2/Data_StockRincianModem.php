@@ -64,7 +64,7 @@ class Data_StockRincianModem extends CI_Controller
             'id_stockBarang'    => $idStockBarang
         );
 
-        $whereCustomer = array(
+        $whereKodeBarang = array(
             'kode_barang'    => $kodeBarang
         );
 
@@ -72,9 +72,9 @@ class Data_StockRincianModem extends CI_Controller
 
         if ($idCustomer != null) {
             $this->BarangModelV2->updateData('data_stockbarang', $dataStockBarang, $whereStockBarang);
-            $this->BarangModelV2->updateData('data_customer', $dataCustomer, $whereCustomer);
+            $this->BarangModelV2->updateData('data_customer', $dataCustomer, $whereKodeBarang);
             $this->BarangModelV2->deleteData($where, 'data_stockrincian');
-            $this->BarangModelV2->deleteData($whereStockBarang, 'data_stockrincian');
+            $this->BarangModelV2->deleteData($whereKodeBarang, 'data_stockkeluar');
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>DELETE DATA BERHASIL</strong>

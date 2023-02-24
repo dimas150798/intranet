@@ -32,15 +32,28 @@ class Add_StockKeluarModem extends CI_Controller
 
         ")->result();
 
-        $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
-        $data['dataStatus'] = $this->BarangModelV2->dataStatus();
-        $data['dataSN'] = $this->BarangModelV2->dataSNBarang($id);
-        $data['dataCustomer'] = $this->BarangModelV2->dataCustomer();
+        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/DataBarangV2/add_StockKeluarModem', $data);
-        $this->load->view('template/footer', $data);
+        $namaBarang = $checkNama->nama_barang;
+
+        if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+            echo "
+                <script>
+                alert('Salah Input Data');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
+        } else {
+            $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
+            $data['dataStatus'] = $this->BarangModelV2->dataStatus();
+            $data['dataSN'] = $this->BarangModelV2->dataSNBarang($id);
+            $data['dataCustomer'] = $this->BarangModelV2->dataCustomer();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('admin/DataBarangV2/add_StockKeluarModem', $data);
+            $this->load->view('template/footer', $data);
+        }
     }
 
     // data keluar ATK
@@ -68,7 +81,7 @@ class Add_StockKeluarModem extends CI_Controller
             $id_barang              = $this->input->post('id_barang');
             $kode_barang            = $this->input->post('kodeBarang');
             $id_customer            = $this->input->post('dataCustomer');
-            $id_status              = 9;
+            $id_status              = 1;
 
             // Stock Gudang
             $stockGudang            = $jumlahNow - $jumlah;
@@ -77,10 +90,11 @@ class Add_StockKeluarModem extends CI_Controller
 
             $dataStockKeluar = array(
                 'id_stockBarang'    => $id_stockBarang,
+                'kode_barang'       => $kode_barang,
                 'jumlah'            => $jumlah,
                 'tanggal'           => $tanggal,
                 'id_pegawai'        => $id_pegawai,
-                'id_status'         => $id_status,
+                'id_status'         => 13,
                 'keterangan'        => $keterangan
             );
 
@@ -90,9 +104,10 @@ class Add_StockKeluarModem extends CI_Controller
                 'tanggal_mutasi'        => $tanggal
             );
 
-            $dataStockRincian = array(
+            $dataAktivasi = array(
                 'tanggal'           => $tanggal,
                 'id_status'         => $id_status,
+                'id_pegawai'        => $id_pegawai,
                 'id_customer'       => $id_customer
             );
 
@@ -104,7 +119,7 @@ class Add_StockKeluarModem extends CI_Controller
                 'id_stockBarang'       => $id_stockBarang
             );
 
-            $whereRincian = array(
+            $whereAktivasi = array(
                 'kode_barang'       => $kode_barang
             );
 
@@ -129,7 +144,7 @@ class Add_StockKeluarModem extends CI_Controller
                     ";
                 } else {
                     $this->BarangModelV2->updateData('data_customer', $dataCustomer, $whereCustomer);
-                    $this->BarangModelV2->updateData('data_stockrincian', $dataStockRincian, $whereRincian);
+                    $this->BarangModelV2->updateData('data_aktivasi', $dataAktivasi, $whereAktivasi);
                     $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
                     $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
                     $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -76,8 +76,8 @@
 									href="<?php echo base_url('admin/DataCustomer/DataCustomerPusat') ?>"><i
 										class="bi bi-person-circle"> Customer Aktif</i></a>
 								<a class="nav-link"
-									href="<?php echo base_url('admin/DataCustomer/DataSNCustomerPusat') ?>"><i
-										class="bi bi-list-ol"> Customer SN</i></a>
+									href="<?php echo base_url('admin/DataBarangV2/Data_Aktivasi') ?>"><i
+										class="bi bi-list-ol"> Data Aktivasi</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataCustomer/DataCustomerTerminate') ?>"><i
 										class="bi bi-wifi-off"> Terminate</i></a>
@@ -100,11 +100,8 @@
 									href="<?php echo base_url('admin/DataBarangV2/Data_BarangNama') ?>"><i
 										class="bi bi-box-seam"> Nama Barang</i></a>
 								<a class="nav-link"
-									href="<?php echo base_url('admin/DataBarangV2/Data_StockRincianModem') ?>"><i
-										class="bi bi-box-seam"> Barang Modem</i></a>
-								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockRincianNonModem') ?>"><i
-										class="bi bi-box-seam"> Barang Non Modem</i></a>
+										class="bi bi-box-seam"> Detail Barang</i></a>
 							</nav>
 						</div>
 
@@ -126,10 +123,10 @@
 										class="bi bi-box-seam"> Kantor</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangModem') ?>"><i
-										class="bi bi-box-seam"> Modem</i></a>
+										class="bi bi-box-seam"> Aktivasi</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangPelanggan') ?>"><i
-										class="bi bi-box-seam"> Pelanggan</i></a>
+										class="bi bi-box-seam"> Distribusi</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangEngineer') ?>"><i
 										class="bi bi-box-seam"> Engineer</i></a>
@@ -153,7 +150,7 @@
 									href="<?php echo base_url('admin/DataBarangV2/Data_BarangMutasi') ?>"><i
 										class="bi bi-box-seam"> Barang Keluar</i></a>
 								<a class="nav-link"
-									href="<?php echo base_url('admin/DataBarangV2/Data_BarangNama') ?>"><i
+									href="<?php echo base_url('admin/DataPeminjamanV2/DataPeminjamanBarang') ?>"><i
 										class="bi bi-box-seam"> Peminjaman</i></a>
 							</nav>
 						</div>

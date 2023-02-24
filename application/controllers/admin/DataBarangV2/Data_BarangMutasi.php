@@ -32,12 +32,10 @@ class Data_BarangMutasi extends CI_Controller
 
         $jumlahStockKeluar = $checkStockKeluar->jumlah;
         $idStockBarang = $checkStockKeluar->id_stockBarang;
+        $kodeBarang = $checkStockKeluar->kode_barang;
+        $idCustomer = $checkStockKeluar->id_customer;
 
         $checkStockBarang = $this->BarangModelV2->checkStockBarang($idStockBarang);
-        $checkStockRincian = $this->BarangModelV2->checkStockRincian($idStockBarang);
-
-        // mengambil data kode barang
-        $kodeBarang = $checkStockRincian->kode_barang;
 
         // mengambil data jumlah stock barang
         $jumlahStockBarang = $checkStockBarang->jumlah_stockBarang;
@@ -49,8 +47,23 @@ class Data_BarangMutasi extends CI_Controller
         // pengembalian data barang keluar dengan mengurangi mutasi
         $penguranganStock = $jumlahStockMutasi - $jumlahStockKeluar;
 
+        $idStatus = 12;
+
+        $dataAktivasi = array(
+            'PCK_jumlah'    => null,
+            'PCH_jumlah'    => null,
+            'id_status'     => 12,
+            'id_pegawai'    => null,
+            'id_customer'   => null
+        );
+
         $dataCustomer = array(
             'kode_barang' => null
+        );
+
+        $dataStockRincian = array(
+            'id_status'     => $idStatus,
+            'id_pegawai'    => $idCustomer
         );
 
         $dataStockBarang = array(
@@ -66,10 +79,12 @@ class Data_BarangMutasi extends CI_Controller
 
         $whereKodeBarang = array('kode_barang' => $kodeBarang);
 
+        $this->BarangModelV2->updateData('data_aktivasi', $dataAktivasi, $whereKodeBarang);
+        $this->BarangModelV2->updateData('data_stockrincian', $dataStockRincian, $whereKodeBarang);
         $this->BarangModelV2->updateData('data_customer', $dataCustomer, $whereKodeBarang);
         $this->BarangModelV2->updateData('data_stockbarang', $dataStockBarang, $whereStockBarang);
         $this->BarangModel->deleteData($whereStockKeluar, 'data_stockkeluar');
-        $this->BarangModel->deleteData($whereKodeBarang, 'data_stockrincian');
+        // $this->BarangModel->deleteData($whereKodeBarang, 'data_stockrincian');
 
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>DELETE DATA BERHASIL</strong>

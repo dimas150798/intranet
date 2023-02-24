@@ -26,20 +26,33 @@ class Add_StockRincianModem extends CI_Controller
         LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
         LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
         
-        WHERE data_stockbarang.id_stockBarang = '$id'
+        WHERE data_stockbarang.id_barang = '$id'
 
         GROUP BY data_stockbarang.id_stockBarang
 
         ")->result();
 
-        $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
-        $data['dataStatus'] = $this->BarangModelV2->dataStatus();
-        $data['dataKeadaan'] = $this->BarangModelV2->dataKeadaanBarang();
+        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/DataBarangV2/add_StockRincianModem', $data);
-        $this->load->view('template/footer', $data);
+        $namaBarang = $checkNama->nama_barang;
+
+        if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+            echo "
+            <script>
+            alert('Tidak Perlu Input Detail Barang');history.go(-1)
+            document.location.href = 'tambahData';            
+            </script>
+            ";
+        } else {
+            $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
+            $data['dataStatus'] = $this->BarangModelV2->dataStatus();
+            $data['dataKeadaan'] = $this->BarangModelV2->dataKeadaanBarang();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('admin/DataBarangV2/add_StockRincianModem', $data);
+            $this->load->view('template/footer', $data);
+        }
     }
 
     public function addStockRincianAksi()
@@ -55,10 +68,10 @@ class Add_StockRincianModem extends CI_Controller
         $id_barang              = $this->input->post('id_barang');
         $jumlahDetailBarang     = $this->input->post('jumlahDetailBarang');
 
-        $dataStockRincian = array(
+        $dataAktivasi = array(
                 'kode_barang'       => $kode_barang,
                 'id_stockBarang'    => $id_stockBarang,
-                'jumlah'            => $jumlah,
+                'jumlah_modem'      => $jumlah,
                 'tanggal'           => $tanggal,
                 'id_status'         => $id_status,
                 'id_keadaanbarang'  => $id_keadaan
@@ -73,7 +86,7 @@ class Add_StockRincianModem extends CI_Controller
             ";
         } else {
             $checkTotalBarang = $this->BarangModelV2->checkDuplicateStockBarang($id_barang);
-            $checkSNBarang = $this->BarangModelV2->checkDuplicateSNModem($kode_barang);
+            $checkSNBarang = $this->BarangModelV2->checkDataAktivasi($kode_barang);
 
             $SN_Modem = $checkSNBarang->kode_barang;
 
@@ -97,7 +110,7 @@ class Add_StockRincianModem extends CI_Controller
                     </script>
                     ";
                 } else {
-                    $this->BarangModelV2->insertData($dataStockRincian, 'data_stockrincian');
+                    $this->BarangModelV2->insertData($dataAktivasi, 'data_aktivasi');
                     $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                                             <strong>TAMBAH DATA BERHASIL</strong>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -64,7 +64,7 @@ class Add_StockBarang extends CI_Controller
                             <strong>TAMBAH DATA BERHASIL</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>');
-                redirect('admin/DataBarangV2/Data_StockBarang');
+                redirect('admin/DataBarangV2/Data_BarangNama');
             }
         }
     }

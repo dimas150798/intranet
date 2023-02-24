@@ -20,7 +20,7 @@
 
                   <?php foreach ($barangNama as $data) : ?>
                   <form method="POST"
-                     action="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarModem/addStockKeluarModem') ?>"
+                     action="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarNonModem/addStockKeluarModem') ?>"
                      enctype="multipart/form-data">
 
                      <div class="row justify-content-center">
@@ -43,16 +43,11 @@
                         <input type="hidden" class="form-control" name="jumlahMutasi" id="jumlahMutasi"
                            value="<?php echo $data->jumlah_stockMutasi?>"
                            placeholder="Masukkan jumlah...">
-
-                        <input type="hidden" class="form-control" name="jumlah" id="jumlah"
-                           value="<?php echo 1?>"
-                           placeholder="Masukkan jumlah..." readonly>
                      </div>
 
                      <div class="row justify-content-center">
                         <div class="col-sm-4 mt-3">
-                           <label for="nama_pegawai" class="form-label" style="font-weight: bold;"> Nama
-                              Barang:
+                           <label for="nama_pegawai" class="form-label" style="font-weight: bold;"> Nama Barang:
                               <span class="text-danger">*</span></label>
 
                            <input type="text" class="form-control bg-warning fw-bold" name="nama_barang"
@@ -98,18 +93,17 @@
                         </div>
 
                         <div class="col-sm-4 mt-3">
-                           <label for="dataCustomer" class="form-label" style="font-weight: bold;">Nama
-                              Customer :
-                              <span class="text-danger text-center">*</span></label>
-                           <select name="dataCustomer" id="dataCustomer" class="form-control" required>
-                              <option disabled selected>-- Pilih Customer --</option>
-                              <?php foreach ($dataCustomer as $customer) : ?>
-                              <option
-                                 value="<?php echo $customer['id_customer']?>">
-                                 <?php echo $customer['nama_customer']?>
-                              </option>
-                              <?php endforeach; ?>
-                           </select>
+                           <label for="jumlah" class="form-label" style="font-weight: bold;"> Jumlah :
+                              <span class="text-danger">*</span></label>
+                           <input type="number" class="form-control" name="jumlah" id="jumlah"
+                              value="<?php echo $data->jumlah_stockBarang?>"
+                              autofocus name="jumlah" min="0" max="2"
+                              max="<?php echo $data->jumlah_stockBarang?>"
+                              placeholder="Masukkan jumlah...">
+                           <div class="bg-danger">
+                              <small
+                                 class="text-white"><?php echo form_error('jumlah'); ?></small>
+                           </div>
                         </div>
 
                         <div class="col-sm-4 mt-3">

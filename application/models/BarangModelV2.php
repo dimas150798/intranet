@@ -2,6 +2,20 @@
 
 class BarangModelV2 extends CI_Model
 {
+    // Menampilkan data pegawai
+    public function dataPegawai()
+    {
+        $query   = $this->db->query("SELECT id_pegawai, NIK, nama_pegawai, no_telpon,
+          alamat_pegawai, pendidikan_pegawai, jabatan, tanggal_masuk, gaji, photo
+          
+          FROM data_pegawai
+          
+          ORDER BY nama_pegawai ASC
+          ");
+
+        return $query->result_array();
+    }
+
     // Menampilkan data stock barang Engineer
     public function data_StockBarangEngineer()
     {
@@ -59,7 +73,7 @@ class BarangModelV2 extends CI_Model
                     LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
                     LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
             
-                    WHERE data_namabarang.id_peralatan = 3
+                    WHERE data_namabarang.id_peralatan = 3 
             
                     GROUP BY data_namabarang.nama_barang
                     ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
@@ -140,7 +154,7 @@ class BarangModelV2 extends CI_Model
         $query   = $this->db->query("SELECT data_stockrincian.id_stockRincian, data_stockrincian.kode_barang, 
         data_stockrincian.id_stockBarang, data_stockrincian.jumlah, data_stockrincian.tanggal, data_stockrincian.id_status, 
         data_stockrincian.id_pegawai, data_namabarang.nama_barang, data_status.nama_status, data_pegawai.nama_pegawai, 
-        data_customer.nama_customer, data_keadaanbarang.nama_keadaan
+        data_keadaanbarang.nama_keadaan
 
         FROM data_stockrincian
         
@@ -148,13 +162,39 @@ class BarangModelV2 extends CI_Model
         LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
         LEFT JOIN data_status ON data_stockrincian.id_status = data_status.id_status
         LEFT JOIN data_pegawai ON data_stockrincian.id_pegawai = data_pegawai.id_pegawai
-        LEFT JOIN data_customer ON data_stockrincian.id_customer = data_customer.id_customer
         LEFT JOIN data_keadaanbarang ON data_stockrincian.id_keadaanbarang = data_keadaanbarang.id_keadaanbarang
 
         WHERE data_namabarang.id_peralatan != 3
         
         ORDER BY data_namabarang.nama_barang ASC
         ");
+
+        return $query->result_array();
+    }
+
+    // Menampilkan data aktivasi
+    public function data_aktivasi()
+    {
+        $query   = $this->db->query("SELECT data_aktivasi.id_aktivasi, data_aktivasi.kode_barang, 
+            data_aktivasi.id_stockBarang, data_aktivasi.jumlah_modem, data_aktivasi.PCK_jumlah, data_aktivasi.PCH_jumlah, 
+            data_aktivasi.tanggal, data_aktivasi.id_status, 
+            data_aktivasi.id_pegawai, data_namabarang.nama_barang, data_status.nama_status, data_pegawai.nama_pegawai, 
+            data_customer.nama_customer, data_keadaanbarang.nama_keadaan
+    
+            FROM data_aktivasi
+            
+            LEFT JOIN data_stockbarang ON data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang
+            LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+            LEFT JOIN data_status ON data_aktivasi.id_status = data_status.id_status
+            LEFT JOIN data_pegawai ON data_aktivasi.id_pegawai = data_pegawai.id_pegawai
+            LEFT JOIN data_customer ON data_aktivasi.id_customer = data_customer.id_customer
+            LEFT JOIN data_keadaanbarang ON data_aktivasi.id_keadaanbarang = data_keadaanbarang.id_keadaanbarang
+
+            WHERE data_namabarang.id_peralatan = 3
+
+            ORDER BY data_namabarang.nama_barang ASC
+            
+                     ");
 
         return $query->result_array();
     }
@@ -251,6 +291,23 @@ class BarangModelV2 extends CI_Model
         }
     }
 
+    // Check Nama Barang
+    public function checkNamaBarang($id_barang)
+    {
+        $this->db->select('id_barang, nama_barang');
+        $this->db->where('id_barang', $id_barang);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_namabarang');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
     // Check Nama Barang Duplicate dengan id
     public function checkDuplicateStockBarang($id_barang)
     {
@@ -288,7 +345,7 @@ class BarangModelV2 extends CI_Model
     // Check Stock Rincian
     public function checkStockKeluar($id_stockKeluar)
     {
-        $this->db->select('id_stockKeluar, id_stockBarang, jumlah, tanggal, id_pegawai, id_status');
+        $this->db->select('id_stockKeluar, id_stockBarang, kode_barang, jumlah, tanggal, id_pegawai, id_status');
         $this->db->where('id_stockKeluar', $id_stockKeluar);
 
         $this->db->limit(1);
@@ -305,7 +362,7 @@ class BarangModelV2 extends CI_Model
     // Check Stock Rincian
     public function checkStockDetailRincian($id_stockRincian)
     {
-        $this->db->select('id_stockRincian, kode_barang, id_stockBarang, jumlah, tanggal, id_status, id_pegawai, id_customer');
+        $this->db->select('id_stockRincian, kode_barang, id_stockBarang, jumlah, tanggal, id_status, id_pegawai');
         $this->db->where('id_stockRincian', $id_stockRincian);
 
         $this->db->limit(1);
@@ -336,10 +393,30 @@ class BarangModelV2 extends CI_Model
         }
     }
 
+    // Check data aktivasi
+    public function checkDataAktivasi($kode_barang)
+    {
+        $this->db->select('data_aktivasi.id_aktivasi, data_aktivasi.kode_barang, data_aktivasi.id_stockBarang, data_aktivasi.jumlah_modem, data_aktivasi.PCK_jumlah,
+                            data_aktivasi.PCH_jumlah, data_aktivasi.tanggal, data_aktivasi.id_customer, data_namabarang.nama_barang');
+        $this->db->join('data_stockbarang', 'data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
+        $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
+
+        $this->db->where('data_aktivasi.kode_barang', $kode_barang);
+
+        $result = $this->db->get('data_aktivasi');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
     // Check Nama Barang Duplicate SN Modem
     public function checkDuplicateSNModem($kode_barang)
     {
-        $this->db->select('data_stockrincian.id_stockRincian, data_stockrincian.kode_barang, data_stockrincian.id_stockBarang, data_stockrincian.jumlah, data_stockrincian.tanggal, data_stockrincian.id_status, data_stockrincian.id_pegawai, data_stockrincian.id_customer, data_stockrincian.id_keadaanbarang');
+        $this->db->select('data_stockrincian.id_stockRincian, data_stockrincian.kode_barang, data_stockrincian.id_stockBarang, data_stockrincian.jumlah, data_stockrincian.tanggal, data_stockrincian.id_status, data_stockrincian.id_pegawai, data_stockrincian.id_customer, data_stockrincian.id_keadaanbarang, data_namabarang.nama_barang');
         $this->db->join('data_stockbarang', 'data_stockrincian.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
         $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
 
@@ -407,7 +484,7 @@ class BarangModelV2 extends CI_Model
     {
         $this->db->select('data_stockrincian.id_stockRincian, data_stockrincian.kode_barang, 
         data_stockrincian.id_stockBarang, data_stockrincian.jumlah, data_stockrincian.tanggal, 
-        data_stockrincian.id_status, data_stockrincian.id_pegawai, data_stockrincian.id_customer, data_stockrincian.id_keadaanbarang, 
+        data_stockrincian.id_status, data_stockrincian.id_pegawai, data_stockrincian.id_keadaanbarang, 
         data_stockbarang.jumlah_stockBarang');
 
         $this->db->join('data_stockbarang', 'data_stockrincian.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
@@ -426,6 +503,75 @@ class BarangModelV2 extends CI_Model
         } else {
             return false;
         }
+    }
+
+    // Menampilkan data peminjaman barang
+    public function dataPeminjamanBarang($day)
+    {
+        $query   = $this->db->query("SELECT data_peminjaman_barang.id_peminjaman_barang, data_peminjaman_barang.id_stockBarang, 
+        data_peminjaman_barang.id_pegawai, data_peminjaman_barang.kode_peminjaman_barang, 
+        data_peminjaman_barang.tanggal, data_peminjaman_barang.jumlah, data_peminjaman_barang.id_status, 
+        data_peminjaman_barang.keterangan, data_namabarang.nama_barang, data_pegawai.nama_pegawai
+
+        FROM data_peminjaman_barang
+        
+        LEFT JOIN data_stockbarang ON data_peminjaman_barang.id_stockBarang = data_stockbarang.id_stockBarang
+        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+        LEFT JOIN data_pegawai ON data_peminjaman_barang.id_pegawai = data_pegawai.id_pegawai
+        LEFT JOIN data_status ON data_peminjaman_barang.id_status = data_status.id_status
+        
+        WHERE data_peminjaman_barang.tanggal = '$day'
+        
+        ORDER BY data_peminjaman_barang.id_peminjaman_barang DESC
+        
+            ");
+
+        return $query->result_array();
+    }
+
+    // Check Pengembalian Barang
+    public function checkPengembalianBarang($id_peminjaman_barang)
+    {
+        $this->db->select('data_peminjaman_barang.id_peminjaman_barang, data_peminjaman_barang.id_stockBarang, data_peminjaman_barang.kode_barang, data_peminjaman_barang.id_pegawai, 
+            data_peminjaman_barang.kode_peminjaman_barang, data_peminjaman_barang.tanggal, data_peminjaman_barang.jumlah, data_peminjaman_barang.id_status, 
+            data_peminjaman_barang.keterangan, data_namabarang.nama_barang, data_stockbarang.jumlah_stockBarang AS jumlahBarangStock, data_stockbarang.jumlah_stockMutasi AS jumlahBarangMutasi, 
+            data_pegawai.nama_pegawai, data_status.nama_status');
+
+        $this->db->join('data_stockbarang', 'data_peminjaman_barang.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
+        $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
+        $this->db->join('data_pegawai', 'data_peminjaman_barang.id_pegawai = data_pegawai.id_pegawai', 'left');
+        $this->db->join('data_status', 'data_peminjaman_barang.id_status = data_status.id_status', 'left');
+
+        $this->db->where('data_peminjaman_barang.id_peminjaman_barang', $id_peminjaman_barang);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_peminjaman_barang');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Menampilkan data stock barang
+    public function dataStockBarang()
+    {
+        $query   = $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
+        data_stockbarang.jumlah_stockBarang, data_stockbarang.jumlah_stockMutasi, data_stockbarang.tanggal_restock, 
+        data_stockbarang.tanggal_mutasi, data_namabarang.nama_barang
+
+        FROM data_stockbarang
+        
+        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+        
+        WHERE data_namabarang.id_peralatan BETWEEN 3 AND 5
+
+        ORDER BY data_namabarang.nama_barang ASC
+                ");
+
+        return $query->result_array();
     }
 
     // ==========================================
@@ -462,13 +608,20 @@ class BarangModelV2 extends CI_Model
         return $query->num_rows();
     }
 
-    // Menampilkan data pegawai
-    public function dataPegawai()
+    // Menampilkan data SN Non Modem
+    public function dataSNNonModem()
     {
-        $query   = $this->db->query("SELECT id_pegawai, NIK, nama_pegawai, no_telpon,
-      alamat_pegawai, pendidikan_pegawai, jabatan, tanggal_masuk, gaji, photo
-      
-      FROM data_pegawai");
+        $query   = $this->db->query("SELECT data_aktivasi.kode_barang
+              
+              FROM data_aktivasi
+              LEFT JOIN data_stockbarang ON data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang
+              LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+    
+              
+              WHERE data_namabarang.id_peralatan = 3
+                AND data_aktivasi.id_keadaanbarang = 2 AND data_aktivasi.id_customer IS NOT NULL AND
+                data_aktivasi.PCK_jumlah IS NULL OR data_aktivasi.PCH_jumlah IS NULL
+              ");
 
         return $query->result_array();
     }
@@ -476,15 +629,15 @@ class BarangModelV2 extends CI_Model
     // Menampilkan data SN Barang
     public function dataSNBarang($id_barang)
     {
-        $query   = $this->db->query("SELECT data_stockrincian.kode_barang
+        $query   = $this->db->query("SELECT data_aktivasi.kode_barang
           
-          FROM data_stockrincian
-          LEFT JOIN data_stockbarang ON data_stockrincian.id_stockBarang = data_stockbarang.id_stockBarang
+          FROM data_aktivasi
+          LEFT JOIN data_stockbarang ON data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang
           LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
 
           
-          WHERE data_stockrincian.id_status = 12 AND data_namabarang.id_peralatan = 3 
-          AND data_stockbarang.id_barang = '$id_barang' AND data_stockrincian.id_keadaanbarang = 2
+          WHERE data_aktivasi.id_status = 12 AND data_namabarang.id_peralatan = 3 
+          AND data_stockbarang.id_barang = '$id_barang' AND data_aktivasi.id_keadaanbarang = 2
           ");
 
         return $query->result_array();
@@ -692,27 +845,7 @@ class BarangModelV2 extends CI_Model
         }
     }
 
-    // Check Pengembalian Barang
-    public function checkPengembalianBarang($id_peminjaman_barang)
-    {
-        $this->db->select('data_peminjaman_barang.id_peminjaman_barang, data_peminjaman_barang.id_barang, data_peminjaman_barang.id_pegawai, 
-        data_peminjaman_barang.kode_peminjaman_barang, data_peminjaman_barang.tanggal, data_peminjaman_barang.jumlah, data_peminjaman_barang.id_status, 
-        data_peminjaman_barang.keterangan, data_barang.nama_barang, data_barang.jumlah AS jumlahBarang, data_pegawai.nama_pegawai, data_status.nama_status');
-        $this->db->join('data_barang', 'data_peminjaman_barang.id_barang = data_barang.id_barang', 'left');
-        $this->db->join('data_pegawai', 'data_peminjaman_barang.id_pegawai = data_pegawai.id_pegawai', 'left');
-        $this->db->join('data_status', 'data_peminjaman_barang.id_status = data_status.id_status', 'left');
-        $this->db->where('data_peminjaman_barang.id_peminjaman_barang', $id_peminjaman_barang);
 
-        $this->db->limit(1);
-        $result = $this->db->get('data_peminjaman_barang');
-
-        return $result->row();
-        if ($result->num_rows() > 0) {
-            return $result->row();
-        } else {
-            return false;
-        }
-    }
 
     // Menampilkan data barang mutasi pusat
     public function dataBarangMutasiPusat($tanggalAwal, $tanggalAkhir)
@@ -744,26 +877,6 @@ class BarangModelV2 extends CI_Model
             
             ORDER BY data_barang_mutasi.id_barang_mutasi DESC
               ");
-
-        return $query->result_array();
-    }
-
-    // Menampilkan data peminjaman barang
-    public function dataPeminjamanBarang($day)
-    {
-        $query   = $this->db->query("SELECT data_peminjaman_barang.id_peminjaman_barang, data_peminjaman_barang.id_barang, data_peminjaman_barang.id_pegawai, 
-        data_peminjaman_barang.kode_peminjaman_barang, data_peminjaman_barang.tanggal, data_peminjaman_barang.jumlah, data_peminjaman_barang.id_status, 
-        data_peminjaman_barang.keterangan, data_barang.nama_barang, data_pegawai.nama_pegawai, data_status.nama_status
-
-        FROM data_peminjaman_barang
-        LEFT JOIN data_barang ON data_peminjaman_barang.id_barang = data_barang.id_barang
-        LEFT JOIN data_pegawai ON data_peminjaman_barang.id_pegawai = data_pegawai.id_pegawai
-        LEFT JOIN data_status ON data_peminjaman_barang.id_status = data_status.id_status
-        
-        WHERE data_peminjaman_barang.tanggal = '$day'
-        
-        ORDER BY data_peminjaman_barang.id_peminjaman_barang DESC
-        ");
 
         return $query->result_array();
     }

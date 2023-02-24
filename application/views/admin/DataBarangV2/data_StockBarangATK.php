@@ -17,10 +17,6 @@
 				<li class="breadcrumb-item active">Tables</li>
 			</ol>
 
-			<a class="btn btn-success mb-3"
-				href="<?php echo base_url('admin/DataBarangV2/Add_StockBarang') ?>"><i
-					class="bi bi-plus-circle"></i> Tambah Data</a>
-
 			<div class="card mb-3">
 				<div id="kwitansiClose" class="card-header">
 					<i class="fas fa-table me-1"></i>
@@ -81,9 +77,6 @@
 
 
 								<td class="text-center">
-									<!-- <a class="btn btn-sm btn-warning"
-                              href="<?php echo base_url('admin/DataBarangV2/Add_StockRincian/addStockRincian/' . $data['id_stockBarang']) ?>"><i
-										class="bi bi-clipboard2-plus-fill"></i></a> -->
 									<a class="btn btn-sm btn-primary"
 										href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarATK/addStockKeluar/' . $data['id_stockBarang']) ?>"><i
 											class="bi bi-dash-lg"></i></a>
