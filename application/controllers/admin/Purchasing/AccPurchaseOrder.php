@@ -16,24 +16,31 @@ class AccPurchaseOrder extends CI_Controller
 
     public function accRequest($id)
     {
-        $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchasing_order, dpo.no_purchase_request, 
-        dpo.id_barang, dpo.no_purchase_order, dpo.no_reff, dpo.nama_supplier, dpo.sub_total, 
-        dpo.ongkir, dpo.id_pegawai, dpo.tanggal, dpo.id_status, dpo.quantinty, data_barang.nama_barang, data_pegawai.nama_pegawai
+        $checkPurchaseOrder     = $this->PurchasingModel->checkPurchaseOrder($id);
+        $idStatus               = $checkPurchaseOrder->id_status;
 
-        FROM data_purchase_order AS dpo
-        INNER JOIN data_barang ON dpo.id_barang = data_barang.id_barang
-        INNER JOIN data_pegawai ON dpo.id_pegawai = data_pegawai.id_pegawai
-        
-        WHERE dpo.id_purchasing_order = $id
-        
-        ORDER BY dpo.id_purchasing_order DESC")->result();
+        var_dump($idStatus);
+        die;
 
-        $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/Purchasing/accPurchaseOrder', $data);
-        $this->load->view('template/footer', $data);
+        // $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchasing_order, dpo.no_purchase_request,
+        // dpo.id_barang, dpo.no_purchase_order, dpo.no_reff, dpo.nama_supplier, dpo.sub_total,
+        // dpo.ongkir, dpo.id_pegawai, dpo.tanggal, dpo.id_status, dpo.quantinty, data_barang.nama_barang, data_pegawai.nama_pegawai
+
+        // FROM data_purchase_order AS dpo
+        // INNER JOIN data_barang ON dpo.id_barang = data_barang.id_barang
+        // INNER JOIN data_pegawai ON dpo.id_pegawai = data_pegawai.id_pegawai
+
+        // WHERE dpo.id_purchasing_order = $id
+
+        // ORDER BY dpo.id_purchasing_order DESC")->result();
+
+        // $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
+
+        // $this->load->view('template/header', $data);
+        // $this->load->view('template/sidebarAdmin', $data);
+        // $this->load->view('admin/Purchasing/accPurchaseOrder', $data);
+        // $this->load->view('template/footer', $data);
     }
 
     public function accRequestAksi()

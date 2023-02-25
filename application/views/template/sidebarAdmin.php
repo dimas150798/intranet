@@ -144,7 +144,7 @@
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link"
-									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangATK') ?>"><i
+									href="<?php echo base_url('admin/DataBarangV2/Data_BarangMasuk') ?>"><i
 										class="bi bi-box-seam"> Barang Masuk</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_BarangMutasi') ?>"><i
@@ -158,7 +158,7 @@
 
 
 						<!-- Purchasing -->
-						<!-- <div class="sb-sidenav-menu-heading">Purchasing</div>
+						<div class="sb-sidenav-menu-heading">Purchasing</div>
 						<a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#purchaseRequest"
 							aria-expanded="false" aria-controls="purchaseRequest">
 							<div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i> </div>
@@ -169,47 +169,54 @@
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link"
+									href="<?php echo base_url('admin/DataPurchase/DataPurchaseRequest') ?>"><i
+										class="bi bi-journal-plus"> Data Request</i></a>
+								<!-- <a class="nav-link"
 									href="<?php echo base_url('admin/Purchasing/DataPurchaseRequest') ?>"><i
-							class="bi bi-eye-fill"> Detail Request</i></a>
+									class="bi bi-eye-fill"> Detail Request</i></a>
+								<a class="nav-link"
+									href="<?php echo base_url('admin/Purchasing/RekapPurchaseRequest') ?>"><i
+										class="bi bi-book"> Rekap Request</i></a> -->
+							</nav>
+						</div>
+
+						<a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#purchaseOrder"
+							aria-expanded="false" aria-controls="purchaseOrder">
+							<div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i> </div>
+							Purchase Order
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="purchaseOrder" aria-labelledby="headingOne"
+							data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link"
+									href="<?php echo base_url('admin/DataPurchase/DataPurchaseOrder') ?>"><i
+										class="bi bi-journal-plus"> Data Request</i></a>
+								<!-- <a class="nav-link"
+									href="<?php echo base_url('admin/Purchasing/DataPurchaseOrder') ?>"><i
+									class="bi bi-eye-fill"> Detail Order</i></a>
+								<a class="nav-link"
+									href="<?php echo base_url('admin/Purchasing/RekapPurchaseOrder') ?>"><i
+										class="bi bi-book"> Rekap Order</i></a> -->
+							</nav>
+						</div>
+
 						<a class="nav-link"
-							href="<?php echo base_url('admin/Purchasing/RekapPurchaseRequest') ?>"><i
-								class="bi bi-book"> Rekap Request</i></a>
+							href="<?php echo base_url('Welcome/logout') ?>">
+							<div class="sb-nav-link-icon"><i class="bi bi-box-arrow-right text-danger"></i></div>
+							Log Out
+						</a>
+
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="text-warning"><img
+							src="<?php echo base_url(); ?>assets/img/welcomeCustomer.gif"
+							alt="" width="30px"> Selamat Datang</div>
+					<div class="small">
+						<?php echo $this->session->userdata('name');?>
+					</div>
+
+				</div>
 			</nav>
 		</div>
-
-		<a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#purchaseOrder" aria-expanded="false"
-			aria-controls="purchaseOrder">
-			<div class="sb-nav-link-icon"><i class="bi bi-clipboard-data-fill"></i> </div>
-			Purchase Order
-			<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-		</a>
-		<div class="collapse" id="purchaseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-			<nav class="sb-sidenav-menu-nested nav">
-				<a class="nav-link"
-					href="<?php echo base_url('admin/Purchasing/DataPurchaseOrder') ?>"><i
-						class="bi bi-eye-fill"> Detail Order</i></a>
-				<a class="nav-link"
-					href="<?php echo base_url('admin/Purchasing/RekapPurchaseOrder') ?>"><i
-						class="bi bi-book"> Rekap Order</i></a>
-			</nav>
-		</div> -->
-
-		<a class="nav-link"
-			href="<?php echo base_url('Welcome/logout') ?>">
-			<div class="sb-nav-link-icon"><i class="bi bi-box-arrow-right text-danger"></i></div>
-			Log Out
-		</a>
-
-	</div>
-	</div>
-	<div class="sb-sidenav-footer">
-		<div class="text-warning"><img
-				src="<?php echo base_url(); ?>assets/img/welcomeCustomer.gif"
-				alt="" width="30px"> Selamat Datang</div>
-		<div class="small">
-			<?php echo $this->session->userdata('name');?>
-		</div>
-
-	</div>
-	</nav>
-	</div>

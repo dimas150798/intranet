@@ -34,7 +34,7 @@ ini_set('display_errors', 0);
 									class="fas fa-eye"></i>
 								Tampilkan</button>
 							<a class="btn btn-primary mt-2 justify-content-end"
-								href="<?php echo base_url('admin/DataPeminjaman/DataPeminjamanBarangPegawai') ?>"
+								href="<?php echo base_url('admin/DataPeminjamanV2/DataBuktiPeminjamanBarang') ?>"
 								style="margin-left: 5px;"><i class="bi bi-images"></i> Bukti Foto</a>
 							<a class="btn btn-success mt-2 justify-content-end"
 								href="<?php echo base_url('admin/DataPeminjamanV2/AddPeminjamanBarang') ?>"

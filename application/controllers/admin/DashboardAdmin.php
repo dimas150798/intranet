@@ -25,11 +25,10 @@ class DashboardAdmin extends CI_Controller
         $bulan         = $pecahDay[1];
         $dayTanggal    = $pecahDay[2];
 
-        // $data['peminjamanBarangPending'] = $this->BarangModel->peminjamanBarangPending();
-        // $data['jumlahBarangKeluar'] = $this->BarangModel->jumlahBarangKeluar($bulan);
-        // $data['jumlahBarangRestock'] = $this->BarangModel->jumlahBarangRestock($bulan);
-        // $data['jumlahBarang'] = $this->BarangModel->jumlahBarang();
-        // $data['jumlahCustomer'] = $this->CustomerModel->jumlahCustomer();
+        $data['peminjamanBarangPending'] = $this->BarangModelV2->jumlahPeminjamanPending($bulan);
+        $data['jumlahBarangKeluar'] = $this->BarangModelV2->jumlahBarangKeluar($bulan);
+        $data['jumlahBarangMasuk'] = $this->BarangModelV2->jumlahBarangMasuk($bulan);
+        $data['jumlahCustomer'] = $this->CustomerModel->jumlahCustomer();
 
         $this->load->view('template/header', $data);
         $this->load->view('template/sidebarAdmin', $data);

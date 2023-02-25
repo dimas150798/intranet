@@ -234,6 +234,9 @@ class BarangModelV2 extends CI_Model
 
          INNER JOIN data_satuan ON data_namabarang.id_satuan = data_satuan.id_satuan
          INNER JOIN data_peralatan ON data_namabarang.id_peralatan = data_peralatan.id_peralatan
+
+         WHERE data_namabarang.nama_barang != 'Ongkir' AND data_namabarang.nama_barang != 'Biaya Penanganan'
+         AND data_namabarang.nama_barang != 'Biaya Layanan'
          ");
 
         return $query->result_array();
@@ -258,6 +261,23 @@ class BarangModelV2 extends CI_Model
         return $query->result_array();
     }
 
+    // Menampilkan data barang masuk
+    public function data_BarangMasuk()
+    {
+        $query   = $this->db->query("SELECT data_stockmasuk.id_stockMasuk, data_stockmasuk.nama_barang, 
+        data_stockmasuk.jumlah, data_stockmasuk.tanggal, data_stockmasuk.id_pegawai, data_stockmasuk.kode_barang, 
+        data_stockmasuk.id_status, data_stockmasuk.keterangan, data_namabarang.nama_barang, data_pegawai.nama_pegawai, data_status.nama_status
+
+        FROM data_stockmasuk
+        LEFT JOIN data_namabarang ON data_stockmasuk.nama_barang = data_namabarang.nama_barang
+        LEFT JOIN data_pegawai ON data_stockmasuk.id_pegawai = data_pegawai.id_pegawai
+        LEFT JOIN data_status ON data_stockmasuk.id_status = data_status.id_status
+        
+        ORDER BY data_stockmasuk.id_stockMasuk DESC
+                ");
+
+        return $query->result_array();
+    }
 
     // Menampilkan data nama barang status Stock
     public function data_NamaBarangStock($id)
@@ -574,29 +594,52 @@ class BarangModelV2 extends CI_Model
         return $query->result_array();
     }
 
-    // ==========================================
-
-    // Menghitung jumlah barang restock bulan ini
-    public function jumlahBarangRestock($month)
+    // Menghitung jumlah barang keluar bulan ini
+    public function jumlahBarangKeluar($month)
     {
-        $query   = $this->db->query("SELECT id_barang_restock, nama_barang, tanggal
-              FROM data_barang_restock
+        $query   = $this->db->query("SELECT id_stockKeluar, tanggal
+              FROM data_stockkeluar
               WHERE MONTH(tanggal) = '$month'
               ");
 
         return $query->num_rows();
     }
 
-    // Menghitung jumlah barang keluar bulan ini
-    public function jumlahBarangKeluar($month)
+    // Menghitung jumlah barang restock bulan ini
+    public function jumlahPeminjamanPending($month)
     {
-        $query   = $this->db->query("SELECT id_barang_mutasi, id_barang, tanggal
-          FROM data_barang_mutasi
-          WHERE MONTH(tanggal) = '$month'
-          ");
+        $query   = $this->db->query("SELECT data_peminjaman_barang.id_peminjaman_barang, data_peminjaman_barang.id_stockBarang, 
+        data_peminjaman_barang.id_pegawai, data_peminjaman_barang.kode_peminjaman_barang, 
+        data_peminjaman_barang.tanggal, data_peminjaman_barang.jumlah, data_peminjaman_barang.id_status, 
+        data_peminjaman_barang.keterangan, data_namabarang.nama_barang, data_pegawai.nama_pegawai
+
+        FROM data_peminjaman_barang
+        
+        LEFT JOIN data_stockbarang ON data_peminjaman_barang.id_stockBarang = data_stockbarang.id_stockBarang
+        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+        LEFT JOIN data_pegawai ON data_peminjaman_barang.id_pegawai = data_pegawai.id_pegawai
+        LEFT JOIN data_status ON data_peminjaman_barang.id_status = data_status.id_status
+        
+        WHERE MONTH(data_peminjaman_barang.tanggal) = '$month' AND data_peminjaman_barang.id_status = 1
+        
+        ORDER BY data_peminjaman_barang.id_peminjaman_barang DESC
+              ");
 
         return $query->num_rows();
     }
+
+    // Menghitung jumlah barang restock bulan ini
+    public function jumlahBarangMasuk($month)
+    {
+        $query   = $this->db->query("SELECT id_stockMasuk, tanggal
+                  FROM data_stockmasuk
+                  WHERE MONTH(tanggal) = '$month'
+                  ");
+
+        return $query->num_rows();
+    }
+    // ==========================================
+
 
     // Menghitung jumlah barang
     public function jumlahBarang()
