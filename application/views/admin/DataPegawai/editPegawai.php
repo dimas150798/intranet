@@ -80,7 +80,8 @@
 									<label for="pendidikan_pegawai" class="form-label"
 										style="font-weight: bold;">Pendidikan : <span
 											class="text-danger">*</span></label>
-									<select name="pendidikan_pegawai" class="form-control text-center" required>
+									<select name="pendidikan_pegawai" id="pendidikan" class="form-control text-center"
+										required>
 										<?php foreach ($dataPendidikan as $dataPDK) : ?>
 										<option
 											value="<?php echo $dataPDK->nama_pendidikan; ?>"

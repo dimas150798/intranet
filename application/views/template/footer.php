@@ -175,6 +175,13 @@
 			dropdownParent: $(this).parent(),
 		});
 	});
+	$('#pendidikan').each(function() {
+		$(this).select2({
+			placeholder: 'Pilih Pendidikan',
+			theme: 'bootstrap-5',
+			dropdownParent: $(this).parent(),
+		});
+	});
 
 
 	// Select Function 

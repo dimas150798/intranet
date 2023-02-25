@@ -18,11 +18,13 @@ class Edit_BarangNama extends CI_Controller
 
     public function editData($id)
     {
-        $data['barangNama']  =  $this->db->query("SELECT data_namaBarang.id_barang, data_namaBarang.nama_barang, 
-        data_namaBarang.id_satuan, data_satuan.id_satuan, data_satuan.nama_satuan, data_peralatan.id_peralatan, data_peralatan.kategori_peralatan
-        FROM data_NamaBarang
-        INNER JOIN data_satuan ON data_NamaBarang.id_satuan = data_satuan.id_satuan
-        INNER JOIN data_peralatan ON data_NamaBarang.id_peralatan = data_peralatan.id_peralatan
+        $data['barangNama']  =  $this->db->query("SELECT data_namabarang.id_barang, data_namabarang.nama_barang, 
+        data_namabarang.id_satuan, data_satuan.id_satuan, data_satuan.nama_satuan, data_peralatan.id_peralatan, data_peralatan.kategori_peralatan
+        
+        FROM data_namabarang
+
+        INNER JOIN data_satuan ON data_namabarang.id_satuan = data_satuan.id_satuan
+        INNER JOIN data_peralatan ON data_namabarang.id_peralatan = data_peralatan.id_peralatan
 
         WHERE id_barang  = '$id'")->result();
 
@@ -39,11 +41,11 @@ class Edit_BarangNama extends CI_Controller
     {
         $id                = $this->input->post('id_barang');
 
-        $data['barangNama']  =  $this->db->query("SELECT data_namaBarang.id_barang, data_namaBarang.nama_barang, 
-        data_namaBarang.id_satuan, data_satuan.id_satuan, data_satuan.nama_satuan, data_peralatan.id_peralatan, data_peralatan.kategori_peralatan
-        FROM data_NamaBarang
-        INNER JOIN data_satuan ON data_NamaBarang.id_satuan = data_satuan.id_satuan
-        INNER JOIN data_peralatan ON data_NamaBarang.id_peralatan = data_peralatan.id_peralatan
+        $data['barangNama']  =  $this->db->query("SELECT data_namabarang.id_barang, data_namabarang.nama_barang, 
+        data_namabarang.id_satuan, data_satuan.id_satuan, data_satuan.nama_satuan, data_peralatan.id_peralatan, data_peralatan.kategori_peralatan
+        FROM data_namabarang
+        INNER JOIN data_satuan ON data_namabarang.id_satuan = data_satuan.id_satuan
+        INNER JOIN data_peralatan ON data_namabarang.id_peralatan = data_peralatan.id_peralatan
 
         WHERE id_barang  = '$id'")->result();
 

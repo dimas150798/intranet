@@ -27,7 +27,7 @@
                               value="<?php echo $this->session->userdata('no_purchase_order')?>"
                               readonly>
 
-                           <input type="hidden" class="form-control" name="id_pegawai" id="id_pegawai"
+                           <input type="text" class="form-control" name="id_pegawai" id="id_pegawai"
                               value="<?php echo $this->session->userdata('id_pegawai')?>"
                               readonly>
                         </div>

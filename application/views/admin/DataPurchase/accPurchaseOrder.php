@@ -116,7 +116,7 @@ $now = date('Y-m-d H:i:s');
                               Nama Yang Order :
                               <span class="text-danger">*</span></label>
                            <select name="pegawai" id="pegawai" class="form-control text-center" required>
-                              <option disabled selected>-- Nama Penerima --</option>
+                              <option disabled selected>-- Nama yang order --</option>
                               <?php foreach ($dataPegawai as $data) : ?>
                               <option
                                  value="<?php echo $data['id_pegawai']?>">

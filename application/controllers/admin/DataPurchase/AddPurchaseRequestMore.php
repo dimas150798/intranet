@@ -52,6 +52,7 @@ class AddPurchaseRequestMore extends CI_Controller
                 'keterangan'                => $keterangan,
                 'id_status'                 => 3,
                 'id_barang'                 => $id_barang,
+                'id_pegawai'                => $id_pegawai,
             );
 
             $dataOrder = array(
