@@ -36,9 +36,12 @@
 									value="<?php echo $data->jumlah_stockBarang?>"
 									placeholder="Masukkan jumlah...">
 
-								<input type="hidden" class="form-control" name="jumlahMutasi" id="jumlahMutasi"
-									value="<?php echo $data->jumlah_stockMutasi?>"
-									placeholder="Masukkan jumlah...">
+								<input type="hidden" class="form-control" name="jumlahMutasi" id="jumlahMutasi" value="<?php if ($data->jumlah_stockMutasi == null) {
+    echo  "0";
+} else {
+    echo $data->jumlah_stockMutasi;
+}
+                                    ?>" placeholder="Masukkan jumlah...">
 							</div>
 
 							<div class="row justify-content-center">
