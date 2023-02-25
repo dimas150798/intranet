@@ -75,35 +75,12 @@ $active_group = 'default';
 $query_builder = true;
 
 // Database Hosting
-// $db['default'] = array(
-//     'dsn'	=> '',
-//     'hostname' => 'localhost',
-//     'username' => 'infh6776_dataBaru',
-//     'password' => 'Ue&D.1Ribppm',
-//     'database' => 'infh6776_intranet',
-//     'dbdriver' => 'mysqli',
-//     'dbprefix' => '',
-//     'pconnect' => false,
-//     'db_debug' => (ENVIRONMENT !== 'production'),
-//     'cache_on' => false,
-//     'cachedir' => '',
-//     'char_set' => 'utf8',
-//     'dbcollat' => 'utf8_general_ci',
-//     'swap_pre' => '',
-//     'encrypt' => false,
-//     'compress' => false,
-//     'stricton' => false,
-//     'failover' => array(),
-//     'save_queries' => true
-// );
-
-// Database Lokal
 $db['default'] = array(
     'dsn'	=> '',
     'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'intranetv2',
+    'username' => 'u1585909_izulfly',
+    'password' => 'infly2020',
+    'database' => 'u1585909_intranet',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => false,
@@ -119,3 +96,26 @@ $db['default'] = array(
     'failover' => array(),
     'save_queries' => true
 );
+
+// Database Lokal
+// $db['default'] = array(
+//     'dsn'	=> '',
+//     'hostname' => 'localhost',
+//     'username' => 'root',
+//     'password' => '',
+//     'database' => 'intranetv2',
+//     'dbdriver' => 'mysqli',
+//     'dbprefix' => '',
+//     'pconnect' => false,
+//     'db_debug' => (ENVIRONMENT !== 'production'),
+//     'cache_on' => false,
+//     'cachedir' => '',
+//     'char_set' => 'utf8',
+//     'dbcollat' => 'utf8_general_ci',
+//     'swap_pre' => '',
+//     'encrypt' => false,
+//     'compress' => false,
+//     'stricton' => false,
+//     'failover' => array(),
+//     'save_queries' => true
+// );
