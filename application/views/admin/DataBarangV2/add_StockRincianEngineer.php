@@ -9,7 +9,6 @@
             <li class="breadcrumb-item active">Form</li>
          </ol>
 
-
          <div class="card mb-4">
             <div class="card-header">
                <i class="fas fa-table me-1"></i>
@@ -93,9 +92,9 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                            <button type="submit" class="btn btn-success mt-2 justify-content-end"
                               style="margin-right: 5px;"><i class="bi bi-plus-circle"></i> Simpan</button>
-                           <a class="btn btn-danger mt-2 justify-content-end" href="javascript:history.go(-1)"><i
-                                 class="bi bi-backspace-fill"></i>
-                              Kembali</a>
+                           <a class="btn btn-danger mt-2 justify-content-end"
+                              href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangEngineer')?>"><i
+                                 class="bi bi-backspace-fill"></i> Kembali</a>
                         </div>
                      </div>
 

@@ -413,6 +413,24 @@ class BarangModelV2 extends CI_Model
         }
     }
 
+    // Check Stock Rincian
+    public function checkStockRincianBarang($id_stockBarang)
+    {
+        $this->db->select('id_stockRincian, kode_barang, id_stockBarang, jumlah, tanggal, id_status, id_pegawai');
+        $this->db->where('id_stockBarang', $id_stockBarang);
+        $this->db->where('id_status', 12);
+
+        $this->db->limit(1);
+        $result = $this->db->get('data_stockrincian');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
     // Check data aktivasi kode
     public function checkDataAktivasi($kode_barang)
     {
