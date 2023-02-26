@@ -40,9 +40,12 @@
                            value="<?php echo $data->jumlah_stockBarang?>"
                            placeholder="Masukkan jumlah...">
 
-                        <input type="hidden" class="form-control" name="jumlahMutasi" id="jumlahMutasi"
-                           value="<?php echo $data->jumlah_stockMutasi?>"
-                           placeholder="Masukkan jumlah...">
+                        <input type="hidden" class="form-control" name="jumlahMutasi" id="jumlahMutasi" value="<?php if ($data->jumlah_stockMutasi == null) {
+    echo  "0";
+} else {
+    echo $data->jumlah_stockMutasi;
+}
+                                    ?>" placeholder="Masukkan jumlah...">
                      </div>
 
                      <div class="row justify-content-center">
@@ -118,9 +121,9 @@
                         <div class="col-sm-12 d-flex justify-content-end">
                            <button type="submit" class="btn btn-success mt-2 justify-content-end"
                               style="margin-right: 5px;"><i class="bi bi-plus-circle"></i> Simpan</button>
-                           <a class="btn btn-danger mt-2 justify-content-end" href="javascript:history.go(-1)"><i
-                                 class="bi bi-backspace-fill"></i>
-                              Kembali</a>
+                           <a class="btn btn-danger mt-2 justify-content-end"
+                              href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangModem')?>"><i
+                                 class="bi bi-backspace-fill"></i> Kembali</a>
                         </div>
                      </div>
 

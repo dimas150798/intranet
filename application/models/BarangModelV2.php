@@ -413,7 +413,7 @@ class BarangModelV2 extends CI_Model
         }
     }
 
-    // Check data aktivasi
+    // Check data aktivasi kode
     public function checkDataAktivasi($kode_barang)
     {
         $this->db->select('data_aktivasi.id_aktivasi, data_aktivasi.kode_barang, data_aktivasi.id_stockBarang, data_aktivasi.jumlah_modem, data_aktivasi.PCK_jumlah,
@@ -422,6 +422,27 @@ class BarangModelV2 extends CI_Model
         $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
 
         $this->db->where('data_aktivasi.kode_barang', $kode_barang);
+
+        $result = $this->db->get('data_aktivasi');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Check data aktivasi id stock barang
+    public function checkDataAktivasiStockBarang($id_stockBarang)
+    {
+        $this->db->select('data_aktivasi.id_aktivasi, data_aktivasi.kode_barang, data_aktivasi.id_stockBarang, data_aktivasi.jumlah_modem, data_aktivasi.PCK_jumlah,
+                              data_aktivasi.PCH_jumlah, data_aktivasi.tanggal, data_aktivasi.id_customer, data_namabarang.nama_barang');
+        $this->db->join('data_stockbarang', 'data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
+        $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
+
+        $this->db->where('data_aktivasi.id_stockBarang', $id_stockBarang);
+        $this->db->where('data_aktivasi.id_customer =', null);
 
         $result = $this->db->get('data_aktivasi');
 

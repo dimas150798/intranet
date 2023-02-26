@@ -18,41 +18,56 @@ class Add_StockKeluarModem extends CI_Controller
 
     public function addStockKeluar($id)
     {
-        $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, data_stockbarang.jumlah_stockBarang, 
-        data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_stockrincian.jumlah
+        $checkStockBarang   = $this->BarangModelV2->checkDuplicateStockBarang($id);
+        $idStockBarang      = $checkStockBarang->id_stockBarang;
 
-        FROM data_stockbarang
-        
-        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
-        LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
-        
-        WHERE data_stockbarang.id_barang = '$id'
+        $checkStockRincian  = $this->BarangModelV2->checkDataAktivasiStockBarang($idStockBarang);
+        $idAktivasi     = $checkStockRincian->id_aktivasi;
 
-        GROUP BY data_stockbarang.id_stockBarang
-
-        ")->result();
-
-        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
-
-        $namaBarang = $checkNama->nama_barang;
-
-        if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+        if ($idAktivasi == null) {
             echo "
-                <script>
-                alert('Salah Input Data');history.go(-1)
-                document.location.href = 'tambahData';            
-                </script>
-                ";
+            <script>
+            alert('Masukkan Detail Barang');history.go(-1)
+            document.location.href = 'tambahData';            
+            </script>
+            ";
         } else {
-            $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
-            $data['dataStatus'] = $this->BarangModelV2->dataStatus();
-            $data['dataSN'] = $this->BarangModelV2->dataSNBarang($id);
-            $data['dataCustomer'] = $this->BarangModelV2->dataCustomer();
+            $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, data_stockbarang.jumlah_stockBarang, 
+            data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_stockrincian.jumlah
+    
+            FROM data_stockbarang
+            
+            LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+            LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
+            
+            WHERE data_stockbarang.id_barang = '$id'
+    
+            GROUP BY data_stockbarang.id_stockBarang
+    
+            ")->result();
 
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/DataBarangV2/add_StockKeluarModem', $data);
-            $this->load->view('template/footer', $data);
+            $checkNama= $this->BarangModelV2->checkNamaBarang($id);
+
+            $namaBarang = $checkNama->nama_barang;
+
+            if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+                echo "
+                    <script>
+                    alert('Salah Input Data');history.go(-1)
+                    document.location.href = 'tambahData';            
+                    </script>
+                    ";
+            } else {
+                $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
+                $data['dataStatus'] = $this->BarangModelV2->dataStatus();
+                $data['dataSN'] = $this->BarangModelV2->dataSNBarang($id);
+                $data['dataCustomer'] = $this->BarangModelV2->dataCustomer();
+
+                $this->load->view('template/header', $data);
+                $this->load->view('template/sidebarAdmin', $data);
+                $this->load->view('admin/DataBarangV2/add_StockKeluarModem', $data);
+                $this->load->view('template/footer', $data);
+            }
         }
     }
 
