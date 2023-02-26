@@ -23,7 +23,7 @@ class Add_StockKeluarKantor extends CI_Controller
         $checkStockBarang   = $this->BarangModelV2->checkDuplicateStockBarang($id);
         $idStockBarang      = $checkStockBarang->id_stockBarang;
 
-        $checkStockRincian  = $this->BarangModelV2->checkStockRincian($idStockBarang);
+        $checkStockRincian  = $this->BarangModelV2->checkStockRincianBarang($idStockBarang);
         $idStockRincian     = $checkStockRincian->id_stockRincian;
 
         if ($idStockRincian == null) {

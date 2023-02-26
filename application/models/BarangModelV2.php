@@ -419,6 +419,7 @@ class BarangModelV2 extends CI_Model
         $this->db->select('id_stockRincian, kode_barang, id_stockBarang, jumlah, tanggal, id_status, id_pegawai');
         $this->db->where('id_stockBarang', $id_stockBarang);
         $this->db->where('id_status', 12);
+        $this->db->where('id_keadaanbarang', 2);
 
         $this->db->limit(1);
         $result = $this->db->get('data_stockrincian');
@@ -460,7 +461,8 @@ class BarangModelV2 extends CI_Model
         $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
 
         $this->db->where('data_aktivasi.id_stockBarang', $id_stockBarang);
-        $this->db->where('data_aktivasi.id_customer =', null);
+        $this->db->where('data_aktivasi.id_customer', null);
+        $this->db->where('data_aktivasi.id_keaadaan', 2);
 
         $result = $this->db->get('data_aktivasi');
 
