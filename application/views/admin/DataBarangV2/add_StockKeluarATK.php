@@ -106,8 +106,8 @@
 									<button type="submit" class="btn btn-success mt-2 justify-content-end"
 										style="margin-right: 5px;"><i class="bi bi-plus-circle"></i> Simpan</button>
 									<a class="btn btn-danger mt-2 justify-content-end"
-										href="javascript:history.go(-1)"><i class="bi bi-backspace-fill"></i>
-										Kembali</a>
+										href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangATK')?>"><i
+											class="bi bi-backspace-fill"></i> Kembali</a>
 								</div>
 							</div>
 
