@@ -462,7 +462,7 @@ class BarangModelV2 extends CI_Model
 
         $this->db->where('data_aktivasi.id_stockBarang', $id_stockBarang);
         $this->db->where('data_aktivasi.id_customer', null);
-        $this->db->where('data_aktivasi.id_keaadaan', 2);
+        $this->db->where('data_aktivasi.id_keadaanbarang', 2);
 
         $result = $this->db->get('data_aktivasi');
 
