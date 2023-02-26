@@ -702,9 +702,9 @@ class BarangModelV2 extends CI_Model
               LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
     
               
-              WHERE data_namabarang.id_peralatan = 3
-                AND data_aktivasi.id_keadaanbarang = 2 AND data_aktivasi.id_customer IS NOT NULL AND
+              WHERE data_namabarang.id_peralatan = 3 AND data_aktivasi.id_customer IS NOT NULL AND
                 data_aktivasi.PCK_jumlah IS NULL OR data_aktivasi.PCH_jumlah IS NULL
+                AND data_aktivasi.id_keadaanbarang = 2
               ");
 
         return $query->result_array();
