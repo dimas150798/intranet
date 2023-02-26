@@ -83,6 +83,7 @@ class AddBiayaLayanan extends CI_Controller
 
         $dataPayLayanan = array(
             'kode_pay_purchase'     => $kode_pay_purchase,
+            'no_purchase_order'     => $no_purchase_order,
             'biaya_ongkir'          => $biaya_ongkir,
             'biaya_penanganan'      => $biaya_penanganan,
             'biaya_layanan'         => $biaya_layanan
