@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 // Config Domain Hosting
-$config['base_url'] = 'http://intranet.inflykebonsari.online';
+$config['base_url'] = 'http://intranet.inflykebonsari.online/';
 
 // Config Domain Lokal
 // $config['base_url'] = 'http://localhost/IntranetInflyV2/';
