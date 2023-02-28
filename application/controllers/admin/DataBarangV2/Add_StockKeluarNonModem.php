@@ -38,7 +38,8 @@ class Add_StockKeluarNonModem extends CI_Controller
 
         $namaBarang = $checkNama->nama_barang;
 
-        if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+        if ($namaBarang == "Patch Core Hitam UPC Outdor" or $namaBarang == "Patch Core Kuning APC (Hijau)" or $namaBarang == "Patch Core Kuning UPC (Biru)"
+        or $namaBarang == "Adaptor 1A" or $namaBarang == "Adaptor 1.5A" or $namaBarang == "Adaptor 2A") {
             $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
             $data['dataStatus'] = $this->BarangModelV2->dataStatus();
             $data['dataSN'] = $this->BarangModelV2->dataSNNonModem();
@@ -103,13 +104,23 @@ class Add_StockKeluarNonModem extends CI_Controller
                 'non_modem'         => "Yes"
             );
 
-            $dataPCK = array(
-                'PCK_jumlah'    => $jumlah,
-                'id_status'     => $id_status13
+            $dataPatch_Core_Kuning_APC_Hijau = array(
+                'Patch_Core_Kuning_APC_Hijau'   => $jumlah,
+                'id_status'                     => $id_status13
             );
 
-            $dataPCH = array(
-                'PCH_jumlah'    => $jumlah,
+            $dataPatch_Core_Kuning_UPC_Biru = array(
+                'Patch_Core_Kuning_UPC_Biru'    => $jumlah,
+                'id_status'                     => $id_status13
+            );
+
+            $dataPatch_Core_Hitam_UPC_Outdor = array(
+                'Patch_Core_Hitam_UPC_Outdor'   => $jumlah,
+                'id_status'                     => $id_status13
+            );
+
+            $dataAdaptor = array(
+                'Adaptor'       => $nama_barang,
                 'id_status'     => $id_status13
             );
 
@@ -131,10 +142,12 @@ class Add_StockKeluarNonModem extends CI_Controller
             $checkPacthCore = $this->BarangModelV2->checkDataAktivasi($kode_barang);
 
             $namaBarang = $checkNama->nama_barang;
-            $jumlahPCK = $checkPacthCore->PCK_jumlah;
-            $jumlahPCH = $checkPacthCore->PCH_jumlah;
+            $jumlahPCKAPC = $checkPacthCore->Patch_Core_Kuning_APC_Hijau;
+            $jumlahPCKUPC = $checkPacthCore->Patch_Core_Kuning_UPC_Biru;
+            $jumlahPCHUPC = $checkPacthCore->Patch_Core_Hitam_UPC_Outdor;
+            $jumlahAdaptor = $checkPacthCore->Adaptor;
 
-            if ($namaBarang == "Patch Core Kuning") {
+            if ($namaBarang == "Patch Core Kuning UPC (Biru)") {
                 if ($jumlahNow == 0) {
                     echo "
                     <script>
@@ -144,8 +157,8 @@ class Add_StockKeluarNonModem extends CI_Controller
                     ";
                 } else {
                     if ($jumlah <= 2) {
-                        if ($jumlahPCK == null) {
-                            $this->BarangModelV2->updateData('data_aktivasi', $dataPCK, $whereAktivasi);
+                        if ($jumlahPCKUPC == null) {
+                            $this->BarangModelV2->updateData('data_aktivasi', $dataPatch_Core_Kuning_UPC_Biru, $whereAktivasi);
                             $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
                             $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
                             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -164,13 +177,13 @@ class Add_StockKeluarNonModem extends CI_Controller
                     } else {
                         echo "
                         <script>
-                        alert('Jumlah Melebihi ');history.go(-1)
+                        alert('Jumlah Melebihi');history.go(-1)
                         document.location.href = 'tambahData';
                         </script>
                         ";
                     }
                 }
-            } elseif ($namaBarang == "Patch Core Hitam") {
+            } elseif ($namaBarang == "Patch Core Kuning APC (Hijau)") {
                 if ($jumlahNow == 0) {
                     echo "
                     <script>
@@ -180,8 +193,8 @@ class Add_StockKeluarNonModem extends CI_Controller
                     ";
                 } else {
                     if ($jumlah <= 2) {
-                        if ($jumlahPCH == null) {
-                            $this->BarangModelV2->updateData('data_aktivasi', $dataPCH, $whereAktivasi);
+                        if ($jumlahPCKAPC == null) {
+                            $this->BarangModelV2->updateData('data_aktivasi', $dataPatch_Core_Kuning_APC_Hijau, $whereAktivasi);
                             $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
                             $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
                             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -200,48 +213,85 @@ class Add_StockKeluarNonModem extends CI_Controller
                     } else {
                         echo "
                         <script>
-                        alert('Jumlah Melebihi ');history.go(-1)
+                        alert('Jumlah Melebihi');history.go(-1)
                         document.location.href = 'tambahData';
                         </script>
                         ";
                     }
                 }
-            } else {
-                echo "
-                <script>
-                alert('Data Yang Dipilih salah');history.go(-1)
-                document.location.href = 'tambahData';
-                </script>
-                ";
+            } elseif ($namaBarang == "Patch Core Hitam UPC Outdor") {
+                if ($jumlahNow == 0) {
+                    echo "
+                    <script>
+                    alert('Stock Barang Kosong');history.go(-1)
+                    document.location.href = 'tambahData';
+                    </script>
+                    ";
+                } else {
+                    if ($jumlah <= 2) {
+                        if ($jumlahPCHUPC == null) {
+                            $this->BarangModelV2->updateData('data_aktivasi', $dataPatch_Core_Hitam_UPC_Outdor, $whereAktivasi);
+                            $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
+                            $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
+                            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    <strong>STOCK BARANG BERHASIL DIKURANGIN</strong>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>');
+                            redirect('admin/DataBarangV2/Data_StockBarangModem');
+                        } else {
+                            echo "
+                        <script>
+                        alert('Data Barang Sudah Dimasukkan');history.go(-1)
+                        document.location.href = 'tambahData';
+                        </script>
+                        ";
+                        }
+                    } else {
+                        echo "
+                        <script>
+                        alert('Jumlah Melebihi');history.go(-1)
+                        document.location.href = 'tambahData';
+                        </script>
+                        ";
+                    }
+                }
+            } elseif ($namaBarang == "Adaptor 1A" or $namaBarang == "Adaptor 1.5A" or $namaBarang == "Adaptor 2A") {
+                if ($jumlahNow == 0) {
+                    echo "
+                    <script>
+                    alert('Stock Barang Kosong');history.go(-1)
+                    document.location.href = 'tambahData';
+                    </script>
+                    ";
+                } else {
+                    if ($jumlah <= 2) {
+                        if ($jumlahAdaptor == null) {
+                            $this->BarangModelV2->updateData('data_aktivasi', $dataAdaptor, $whereAktivasi);
+                            $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
+                            $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
+                            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    <strong>STOCK BARANG BERHASIL DIKURANGIN</strong>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>');
+                            redirect('admin/DataBarangV2/Data_StockBarangModem');
+                        } else {
+                            echo "
+                            <script>
+                            alert('Data Barang Sudah Dimasukkan');history.go(-1)
+                            document.location.href = 'tambahData';
+                            </script>
+                            ";
+                        }
+                    } else {
+                        echo "
+                        <script>
+                        alert('Jumlah Melebihi');history.go(-1)
+                        document.location.href = 'tambahData';
+                        </script>
+                        ";
+                    }
+                }
             }
-
-
-            // if ($jumlahNow == 0) {
-                //     echo "
-                // <script>
-                // alert('Stock Barang Kosong');history.go(-1)
-                // document.location.href = 'tambahData';
-                // </script>
-                // ";
-                // } else {
-                //     if ($kode_barang == null && $kode_barang == 0) {
-                //         echo "
-                //     <script>
-                //     alert('Stock Barang Kosong');history.go(-1)
-                //     document.location.href = 'tambahData';
-                //     </script>
-                //     ";
-                //     } else {
-                //         $this->BarangModelV2->updateData('data_aktivasi', $dataAktivasi, $whereAktivasi);
-                //         $this->BarangModelV2->updateData('data_stockbarang', $dataStockGudang, $where);
-                //         $this->BarangModelV2->insertData($dataStockKeluar, 'data_stockkeluar');
-                //         $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                //                         <strong>STOCK BARANG BERHASIL DIKURANGIN</strong>
-                //                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                //                         </div>');
-                //         redirect('admin/DataBarangV2/Data_StockBarangNonModem');
-                //     }
-                // }
         }
     }
 }

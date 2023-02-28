@@ -95,15 +95,6 @@
                               </div>
                         </td>
 
-                        <!-- <td class="text-center">
-									<a class="btn btn-sm btn-warning"
-										href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianPelanggan/addStockRincian/' . $data['id_stockBarang']) ?>"><i
-                           class="bi bi-clipboard2-plus-fill"></i></a>
-                        <a class="btn btn-sm btn-primary"
-                           href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarPelanggan/addStockKeluar/' . $data['id_stockBarang']) ?>"><i
-                              class="bi bi-dash-lg"></i></a>
-                        </td> -->
-
                      </tr>
                      <?php endforeach; ?>
                   </tbody>

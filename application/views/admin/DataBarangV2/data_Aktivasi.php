@@ -36,8 +36,10 @@
                         <th width="5%" class="text-center">No</th>
                         <th width="10%">Nama Barang</th>
                         <th width="7%" class="text-center">SN</th>
-                        <th width="10%" class="text-center">PCK Jumlah</th>
-                        <th width="10%" class="text-center">PCH Jumlah</th>
+                        <th width="10%" class="text-center">Patch Core Hitam UPC Outdor</th>
+                        <th width="10%" class="text-center">Patch Core Kuning UPC (Biru)</th>
+                        <th width="10%" class="text-center">Patch Core Kuning APC (Hijau)</th>
+                        <th width="10%" class="text-center">Adaptor</th>
                         <th width="13%" class="text-center">Nama Customer</th>
                         <th width="7%" class="text-center">Tanggal</th>
                         <th width="10%" class="text-center">Status</th>
@@ -62,19 +64,36 @@
                         </td>
                         <td class="text-center">
                            <?php
-                           if ($data['PCK_jumlah'] == null) {
+                           if ($data['Patch_Core_Hitam_UPC_Outdor'] == null) {
                                echo '0';
                            } else {
-                               echo $data['PCK_jumlah'];
+                               echo $data['Patch_Core_Hitam_UPC_Outdor'];
+                           }
+                           ?>
+                        <td class="text-center">
+                           <?php
+                           if ($data['Patch_Core_Kuning_UPC_Biru'] == null) {
+                               echo '0';
+                           } else {
+                               echo $data['Patch_Core_Kuning_UPC_Biru'];
                            }
                            ?>
                         </td>
                         <td class="text-center">
                            <?php
-                           if ($data['PCH_jumlah'] == null) {
+                           if ($data['Patch_Core_Kuning_APC_Hijau'] == null) {
                                echo '0';
                            } else {
-                               echo $data['PCH_jumlah'];
+                               echo $data['Patch_Core_Kuning_APC_Hijau'];
+                           }
+                           ?>
+                        </td>
+                        <td class="text-center">
+                           <?php
+                           if ($data['Adaptor'] == null) {
+                               echo '-';
+                           } else {
+                               echo $data['Adaptor'];
                            }
                            ?>
                         </td>

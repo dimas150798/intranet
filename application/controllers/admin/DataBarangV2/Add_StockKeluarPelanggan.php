@@ -38,10 +38,10 @@ class Add_StockKeluarPelanggan extends CI_Controller
 
         $namaBarang = $checkNama->nama_barang;
 
-        if ($namaBarang == "kabel") {
+        if ($namaBarang == "Kabel") {
             echo "
             <script>
-            alert('Tidak Perlu Input Detail Barang');history.go(-1)
+            alert('Salah Input Data');history.go(-1)
             document.location.href = 'tambahData';            
             </script>
             ";

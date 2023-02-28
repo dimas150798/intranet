@@ -34,10 +34,10 @@
 
 								<input type="hidden" class="form-control" name="jumlahDetailBarang"
 									id="jumlahDetailBarang" value="<?php
-                                    if ($data->jumlah == null) {
+                                    if ($data->jumlah_stockBarang == null) {
                                         echo "0";
                                     } else {
-                                        echo "$data->jumlah";
+                                        echo "$data->jumlah_stockBarang";
                                     }
                                     ?>" readonly>
 							</div>

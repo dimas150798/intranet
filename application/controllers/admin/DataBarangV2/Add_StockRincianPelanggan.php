@@ -20,25 +20,9 @@ class Add_StockRincianPelanggan extends CI_Controller
 
     public function addStockRincian($id)
     {
-        $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
-        data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
+        $checkNama= $this->BarangModelV2->checkNamaBarangKabel($id);
 
-        FROM data_stockbarang
-        
-        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
-        LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
-        
-        WHERE data_stockbarang.id_barang = '$id'
-
-        GROUP BY data_stockbarang.id_stockBarang
-
-        ")->result();
-
-        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
-
-        $namaBarang = $checkNama->nama_barang;
-
-        if ($namaBarang != "Kabel") {
+        if ($checkNama == null) {
             echo "
             <script>
             alert('Tidak Perlu Input Detail Barang');history.go(-1)
@@ -46,6 +30,20 @@ class Add_StockRincianPelanggan extends CI_Controller
             </script>
             ";
         } else {
+            $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
+            data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
+    
+            FROM data_stockbarang
+            
+            LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+            LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
+            
+            WHERE data_stockbarang.id_barang = '$id'
+    
+            GROUP BY data_stockbarang.id_stockBarang
+    
+            ")->result();
+
             $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
             $data['dataStatus'] = $this->BarangModelV2->dataStatus();
             $data['dataKeadaan'] = $this->BarangModelV2->dataKeadaanBarang();
@@ -70,6 +68,13 @@ class Add_StockRincianPelanggan extends CI_Controller
         $id_barang              = $this->input->post('id_barang');
         $jumlahDetailBarang     = $this->input->post('jumlahDetailBarang');
 
+        $checkJumlahKabel = $this->BarangModelV2->checkJumlahKabel($id_stockBarang);
+
+        $jumlahKabelDetail = $checkJumlahKabel->jumlahKabel;
+
+        // var_dump($checkJumlahKabel);
+        // die;
+
         $dataStockRincian = array(
                 'kode_barang'       => $kode_barang,
                 'id_stockBarang'    => $id_stockBarang,
@@ -93,19 +98,19 @@ class Add_StockRincianPelanggan extends CI_Controller
             $StockMutasi = $checkTotalBarang->jumlah_stockMutasi;
             $JumlahStockAll = $StockBarang + $StockMutasi;
 
-            if ($jumlahDetailBarang >= $JumlahStockAll) {
+            if ($jumlahKabelDetail >= $jumlahDetailBarang) {
                 echo "
-                <script>
-                alert('Data Yang Dimasukkan Melebihi Stock Yang Ada');history.go(-1)
-                document.location.href = 'tambahData';            
-                </script>
-                ";
+                    <script>
+                    alert('Data Yang Dimasukkan Melebihi Stock Yang Ada');history.go(-1)
+                    document.location.href = 'tambahData';            
+                    </script>
+                    ";
             } else {
                 $this->BarangModelV2->insertData($dataStockRincian, 'data_stockrincian');
                 $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <strong>TAMBAH DATA BERHASIL</strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                        </div>');
+                                            <strong>TAMBAH DATA BERHASIL</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>');
                 redirect('admin/DataBarangV2/Data_StockBarangPelanggan');
             }
         }

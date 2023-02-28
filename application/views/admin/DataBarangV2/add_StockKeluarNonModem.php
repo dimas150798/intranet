@@ -60,6 +60,20 @@
                         </div>
 
                         <div class="col-sm-4 mt-3">
+                           <label for="jumlah" class="form-label" style="font-weight: bold;"> Jumlah :
+                              <span class="text-danger">*</span></label>
+                           <input type="number" class="form-control" name="jumlah" id="jumlah"
+                              value="<?php echo $data->jumlah_stockBarang?>"
+                              autofocus name="jumlah" min="0"
+                              max="<?php echo $data->jumlah_stockBarang?>"
+                              placeholder="Masukkan jumlah...">
+                           <div class="bg-danger">
+                              <small
+                                 class="text-white"><?php echo form_error('jumlah'); ?></small>
+                           </div>
+                        </div>
+
+                        <div class="col-sm-4 mt-3">
                            <label for="kodeBarang" class="form-label" style="font-weight: bold;">SN Modem :
                               <span class="text-danger text-center">*</span></label>
                            <select name="kodeBarang" id="kodeBarang" class="form-control" required>
@@ -73,11 +87,6 @@
                            </select>
                         </div>
 
-                        <div class="col-sm-4 mt-3">
-                           <label for="tanggal" class="form-label" style="font-weight: bold;"> Tanggal :
-                              <span class="text-danger">*</span></label>
-                           <input type="date" class="form-control" name="tanggal" id="tanggal" value="" placeholder="">
-                        </div>
                      </div>
 
                      <div class="row justify-content-center">
@@ -96,17 +105,9 @@
                         </div>
 
                         <div class="col-sm-4 mt-3">
-                           <label for="jumlah" class="form-label" style="font-weight: bold;"> Jumlah :
+                           <label for="tanggal" class="form-label" style="font-weight: bold;"> Tanggal :
                               <span class="text-danger">*</span></label>
-                           <input type="number" class="form-control" name="jumlah" id="jumlah"
-                              value="<?php echo $data->jumlah_stockBarang?>"
-                              autofocus name="jumlah" min="0" max="2"
-                              max="<?php echo $data->jumlah_stockBarang?>"
-                              placeholder="Masukkan jumlah...">
-                           <div class="bg-danger">
-                              <small
-                                 class="text-white"><?php echo form_error('jumlah'); ?></small>
-                           </div>
+                           <input type="date" class="form-control" name="tanggal" id="tanggal" value="" placeholder="">
                         </div>
 
                         <div class="col-sm-4 mt-3">
