@@ -679,6 +679,23 @@ class BarangModelV2 extends CI_Model
 
         return $query->num_rows();
     }
+
+    // Menampilkan data Kode Kabel
+    public function dataKodeKabel($id_barang)
+    {
+        $query   = $this->db->query("SELECT data_stockrincian.kode_barang
+              
+              FROM data_stockrincian
+              LEFT JOIN data_stockbarang ON data_stockrincian.id_stockBarang = data_stockbarang.id_stockBarang
+              LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+    
+              
+              WHERE data_stockrincian.id_status = 12 AND data_namabarang.id_peralatan = 4
+              AND data_stockbarang.id_barang = '$id_barang' AND data_stockrincian.id_keadaanbarang = 2
+              ");
+
+        return $query->result_array();
+    }
     // ==========================================
 
 

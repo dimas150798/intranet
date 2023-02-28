@@ -1,5 +1,12 @@
 <?php
 $months = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
+
+if (!function_exists('changeDateFormat')) {
+    function changeDateFormat($format='d-m-Y', $givenDate=null)
+    {
+        return date($format, strtotime($givenDate));
+    }
+}
 ?>
 
 <div id="layoutSidenav_content">
@@ -32,6 +39,7 @@ $months = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Ju
 								<th width="20%">Nama</th>
 								<th width="10%">Paket</th>
 								<th width="20%">Alamat</th>
+								<th width="10%">Tanggal</th>
 								<th width="10%" class="text-center">Telepon</th>
 								<th width="5%" class="text-center">Opsi</th>
 							</tr>
@@ -56,6 +64,13 @@ $months = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Ju
 									<?php echo $data['nama_kota']?>,
 									<?php echo $data['nama_kecamatan']?>,
 									<?php echo $data['nama_kelurahan']?>
+								</td>
+								<td class="text-center">
+									<?php if ($data['date'] == null) {
+                                echo "-";
+                            } else {
+                                echo changeDateFormat('d-m-Y', $data['date']);
+                            }?>
 								</td>
 								<td class="text-center">
 									<?php echo $data['tlp_customer']?>

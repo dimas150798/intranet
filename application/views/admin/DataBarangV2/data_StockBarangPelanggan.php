@@ -75,12 +75,34 @@
                         }?>
                         </td>
 
-
                         <td class="text-center">
-                           <a class="btn btn-sm btn-primary"
-                              href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarPelanggan/addStockKeluar/' . $data['id_stockBarang']) ?>"><i
-                                 class="bi bi-dash-lg"></i></a>
+                           <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-info dropdown-toggle"
+                                 data-bs-toggle="dropdown" data-bs-target="#dropdown" aria-expanded="false"
+                                 aria-controls="dropdown">
+                                 Opsi
+                              </button>
+                              <div class="dropdown-menu text-black" style="background-color:aqua;">
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianPelanggan/addStockRincian/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-clipboard2-plus-fill"></i> Detail Barang</a>
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarKabel/addStockKeluar/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-dash-lg"></i> Keluar Kabel</a>
+                                 <a class="dropdown-item text-black"
+                                    href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarPelanggan/addStockKeluar/' . $data['id_barang']) ?>"><i
+                                       class="bi bi-dash-lg"></i> Keluar Non Kabel</a>
+                              </div>
                         </td>
+
+                        <!-- <td class="text-center">
+									<a class="btn btn-sm btn-warning"
+										href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianPelanggan/addStockRincian/' . $data['id_stockBarang']) ?>"><i
+                           class="bi bi-clipboard2-plus-fill"></i></a>
+                        <a class="btn btn-sm btn-primary"
+                           href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarPelanggan/addStockKeluar/' . $data['id_stockBarang']) ?>"><i
+                              class="bi bi-dash-lg"></i></a>
+                        </td> -->
 
                      </tr>
                      <?php endforeach; ?>

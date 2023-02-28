@@ -20,25 +20,40 @@ class Add_StockKeluarPelanggan extends CI_Controller
 
     public function addStockKeluar($id)
     {
-        $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, data_stockbarang.jumlah_stockBarang, 
-        data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_stockrincian.jumlah
+        $data['barangNama']  =  $this->db->query("SELECT COUNT(data_stockrincian.id_stockRincian) AS jumlahDetailBarang, data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
+        data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
 
         FROM data_stockbarang
         
         LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
         LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
         
-        WHERE data_stockbarang.id_stockBarang = '$id'
+        WHERE data_stockbarang.id_barang = '$id'
+
+        GROUP BY data_stockbarang.id_stockBarang
 
         ")->result();
 
-        $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
-        $data['dataStatus'] = $this->BarangModelV2->dataStatus();
+        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/sidebarAdmin', $data);
-        $this->load->view('admin/DataBarangV2/add_StockKeluarPelanggan', $data);
-        $this->load->view('template/footer', $data);
+        $namaBarang = $checkNama->nama_barang;
+
+        if ($namaBarang == "kabel") {
+            echo "
+            <script>
+            alert('Tidak Perlu Input Detail Barang');history.go(-1)
+            document.location.href = 'tambahData';            
+            </script>
+            ";
+        } else {
+            $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
+            $data['dataStatus'] = $this->BarangModelV2->dataStatus();
+
+            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebarAdmin', $data);
+            $this->load->view('admin/DataBarangV2/add_StockKeluarPelanggan', $data);
+            $this->load->view('template/footer', $data);
+        }
     }
 
     // data keluar ATK

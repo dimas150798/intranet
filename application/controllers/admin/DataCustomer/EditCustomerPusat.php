@@ -30,7 +30,7 @@ class EditCustomerPusat extends CI_Controller
 
     public function editData($id)
     {
-        $data['dataCustomer']  =  $this->db->query("SELECT data_customer.id_customer,data_customer.pembelian_paket,data_customer.nama_customer,       
+        $data['dataCustomer']  =  $this->db->query("SELECT data_customer.id_customer,data_customer.pembelian_paket,data_customer.nama_customer,data_customer.date,   
             data_customer.nik_customer,data_customer.alamat_customer,data_customer.tlp_customer, data_customer.id_kota, data_customer.id_kecamatan, data_customer.id_kelurahan,
             data_kota.id_kota, data_kota.nama_kota, data_kecamatan.id_kecamatan, data_kecamatan.nama_kecamatan, data_kelurahan.id_kelurahan, data_kelurahan.nama_kelurahan
             
@@ -90,7 +90,7 @@ class EditCustomerPusat extends CI_Controller
     {
         $id                     = $this->input->post('id_customer');
 
-        $data['dataCustomer']   =  $this->db->query("SELECT data_customer.id_customer,data_customer.pembelian_paket,data_customer.nama_customer,       
+        $data['dataCustomer']   =  $this->db->query("SELECT data_customer.id_customer,data_customer.pembelian_paket,data_customer.nama_customer,data_customer.date,  
             data_customer.nik_customer,data_customer.alamat_customer,data_customer.tlp_customer,data_customer.id_kota, data_customer.id_kecamatan, data_customer.id_kelurahan,
             data_kota.id_kota, data_kota.nama_kota, data_kecamatan.id_kecamatan, data_kecamatan.nama_kecamatan, data_kelurahan.id_kelurahan, data_kelurahan.nama_kelurahan
             
@@ -126,12 +126,14 @@ class EditCustomerPusat extends CI_Controller
             $kecamatan              = $this->input->post('kecamatan');
             $kelurahan              = $this->input->post('kelurahan');
             $tlp_customer           = $this->input->post('tlp_customer');
+            $tanggal                = $this->input->post('tanggal');
 
             $data = array(
                         'pembelian_paket'    => $pembelian_paket,
                         'nama_customer'      => $nama_customer,
                         'nik_customer'       => $nik_customer,
                         'alamat_customer'    => $alamat_customer,
+                        'date'               => $tanggal,
                         'id_kota'            => $kota,
                         'id_kecamatan'       => $kecamatan,
                         'id_kelurahan'       => $kelurahan,

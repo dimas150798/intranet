@@ -88,12 +88,14 @@ class AddCustomerPusat extends CI_Controller
             $kota                   = $this->input->post('kota');
             $kecamatan              = $this->input->post('kecamatan');
             $kelurahan              = $this->input->post('kelurahan');
+            $tanggal                = $this->input->post('tanggal');
 
             $data = array(
                         'pembelian_paket'    => $pembelian_paket,
                         'nama_customer'      => $nama_customer,
                         'nik_customer'       => $nik_customer,
                         'alamat_customer'    => $alamat_customer,
+                        'date'               => $tanggal,
                         'id_kota'            => $kota,
                         'id_kecamatan'       => $kecamatan,
                         'id_kelurahan'       => $kelurahan,

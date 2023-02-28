@@ -8,7 +8,7 @@ class CustomerModel extends CI_Model
     {
         $query   = $this->db->query("SELECT data_customer.id_customer,data_customer.pembelian_paket,data_customer.nama_customer,      
       data_customer.nik_customer,data_customer.alamat_customer,data_customer.tlp_customer,
-      data_kota.nama_kota, data_kecamatan.nama_kecamatan, data_kelurahan.nama_kelurahan
+      data_kota.nama_kota, data_kecamatan.nama_kecamatan, data_kelurahan.nama_kelurahan, data_customer.date
       
       FROM data_customer
       LEFT JOIN data_kota ON data_customer.id_kota = data_kota.id_kota

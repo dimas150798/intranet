@@ -78,7 +78,7 @@
 
 							<div class="row justify-content-center">
 
-								<div class="col-sm-6 mt-2">
+								<div class="col-sm-3 mt-2">
 									<label for="alamat_customer" class="form-label" style="font-weight: bold;"> Alamat :
 										<span class="text-danger">*</span></label>
 									<input type="text" class="form-control" name="alamat_customer" id="alamat_customer"
@@ -88,6 +88,13 @@
 										<small
 											class="text-white"><?php echo form_error('alamat_customer'); ?></small>
 									</div>
+								</div>
+								<div class="col-sm-3 mt-2">
+									<label for="tanggal" class="form-label" style="font-weight: bold;"> Tanggal : <span
+											class="text-danger">*</span></label>
+									<input type="date" class="form-control" name="tanggal" id="tanggal"
+										value="<?php echo $data->date?>"
+										placeholder="Masukkan alamat...">
 								</div>
 								<div class="col-sm-6 mt-2">
 									<label for="kota" class="form-label" style="font-weight: bold;"> Kota / Kabupaten :
