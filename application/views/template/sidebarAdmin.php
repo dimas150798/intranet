@@ -191,7 +191,7 @@
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataPurchase/DataPurchaseOrder') ?>"><i
-										class="bi bi-journal-plus"> Data Request</i></a>
+										class="bi bi-journal-plus"> Data Order</i></a>
 								<!-- <a class="nav-link"
 									href="<?php echo base_url('admin/Purchasing/DataPurchaseOrder') ?>"><i
 									class="bi bi-eye-fill"> Detail Order</i></a>
