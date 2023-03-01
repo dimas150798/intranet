@@ -32,7 +32,7 @@ class BarangModelV2 extends CI_Model
                     WHERE data_namabarang.id_peralatan = 5
             
                     GROUP BY data_namabarang.nama_barang
-                    ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
+                    ORDER BY data_namabarang.nama_barang ASC
                          ");
 
         return $query->result_array();
@@ -54,7 +54,7 @@ class BarangModelV2 extends CI_Model
                     WHERE data_namabarang.id_peralatan = 4
             
                     GROUP BY data_namabarang.nama_barang
-                    ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
+                    ORDER BY data_namabarang.nama_barang ASC
                          ");
 
         return $query->result_array();
@@ -76,7 +76,7 @@ class BarangModelV2 extends CI_Model
                     WHERE data_namabarang.id_peralatan = 3 
             
                     GROUP BY data_namabarang.nama_barang
-                    ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
+                    ORDER BY data_namabarang.nama_barang ASC
                          ");
 
         return $query->result_array();
@@ -98,7 +98,7 @@ class BarangModelV2 extends CI_Model
                 WHERE data_namabarang.id_peralatan = 1
         
                 GROUP BY data_namabarang.nama_barang
-                ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
+                ORDER BY data_namabarang.nama_barang ASC
                      ");
 
         return $query->result_array();
@@ -120,7 +120,7 @@ class BarangModelV2 extends CI_Model
             WHERE data_namabarang.id_peralatan = 2
     
             GROUP BY data_namabarang.nama_barang
-            ORDER BY data_namabarang.nama_barang, data_stockrincian.tanggal DESC
+            ORDER BY data_namabarang.nama_barang ASC
                  ");
 
         return $query->result_array();
@@ -237,6 +237,8 @@ class BarangModelV2 extends CI_Model
 
          WHERE data_namabarang.nama_barang != 'Ongkir' AND data_namabarang.nama_barang != 'Biaya Penanganan'
          AND data_namabarang.nama_barang != 'Biaya Layanan'
+
+         ORDER BY data_namabarang.nama_barang ASC
          ");
 
         return $query->result_array();
