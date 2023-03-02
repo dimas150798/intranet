@@ -38,9 +38,9 @@
 								<th width="5%" class="text-center">Jumlah</th>
 								<th width="10%" class="text-center">Tanggal</th>
 								<th width="20%">Nama Pegawai</th>
-								<th width="13%" class="text-center">Status Barang</th>
-								<th width="13%" class="text-center">Keterangan</th>
-								<th width="10%" class="text-center">Opsi</th>
+								<th width="20%">Nama Customer</th>
+								<th width="10%" class="text-center">Status Barang</th>
+								<th width="15%" class="text-center">Keterangan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,6 +64,9 @@
 								<td>
 									<?php echo $data['nama_pegawai']?>
 								</td>
+								<td>
+									<?php echo $data['nama_customer']?>
+								</td>
 								<td class="text-center">
 									<?php echo $data['nama_status']?>
 								</td>
@@ -71,14 +74,11 @@
 									<?php echo $data['keterangan']?>
 								</td>
 
-								<td class="text-center">
-									<!-- <a class="btn btn-sm btn-primary"
-										href="<?php echo base_url('admin/DataBarangV2/Edit_BarangNama/editData/' . $data['id_stockKeluar']) ?>"><i
-										class="bi bi-pencil-square"></i></a> -->
+								<!-- <td class="text-center">
 									<a onclick="return confirm('Yakin Menghapus Data')" class="btn btn-sm btn-danger"
 										href="<?php echo base_url('admin/DataBarangV2/Data_BarangMutasi/deleteData/' . $data['id_stockKeluar']) ?>"><i
-											class="fas fa-trash"></i></a>
-								</td>
+									class="fas fa-trash"></i></a>
+								</td> -->
 
 							</tr>
 							<?php endforeach; ?>

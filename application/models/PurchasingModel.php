@@ -167,7 +167,7 @@ class PurchasingModel extends CI_Model
         $this->db->select('data_purchase_order.id_purchase_order, data_purchase_order.no_purchase_order, data_purchase_order.no_purchase_request,
         data_purchase_order.jumlah_order, data_purchase_order.tanggal, data_purchase_order.no_pesanan, data_purchase_order.nama_supplier,
         data_purchase_order.harga_barang, data_purchase_order.keterangan, data_purchase_order.kode_pay_purchase, data_purchase_order.id_status,
-        data_purchase_order.id_pegawai_order, data_purchase_order.id_barang');
+        data_purchase_order.id_pegawai_order, data_purchase_order.id_barang, data_namabarang.id_peralatan');
 
         $this->db->where('data_purchase_order.id_purchase_order', $id_purchase_order);
         $this->db->join('data_purchase_request', 'data_purchase_order.no_purchase_request = data_purchase_request.no_purchase_request', 'left');

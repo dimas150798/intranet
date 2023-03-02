@@ -249,14 +249,18 @@ class BarangModelV2 extends CI_Model
     {
         $query   = $this->db->query("SELECT data_stockkeluar.id_stockKeluar, data_stockkeluar.id_stockBarang, 
         data_stockkeluar.jumlah, data_stockkeluar.tanggal, data_stockkeluar.id_pegawai, 
-        data_stockkeluar.id_status, data_stockkeluar.keterangan, data_namabarang.nama_barang, data_pegawai.nama_pegawai, data_status.nama_status
+        data_stockkeluar.id_status, data_stockkeluar.keterangan, data_namabarang.nama_barang, data_pegawai.nama_pegawai, data_status.nama_status,
+        data_customer.nama_customer
 
         FROM data_stockkeluar
         LEFT JOIN data_stockbarang ON data_stockkeluar.id_stockBarang = data_stockbarang.id_stockBarang
         LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
         LEFT JOIN data_pegawai ON data_stockkeluar.id_pegawai = data_pegawai.id_pegawai
         LEFT JOIN data_status ON data_stockkeluar.id_status = data_status.id_status
+        LEFT JOIN data_customer ON data_stockkeluar.id_customer = data_customer.id_customer
         
+        WHERE data_stockkeluar.jumlah != 0
+
         ORDER BY data_stockkeluar.id_stockKeluar DESC
              ");
 

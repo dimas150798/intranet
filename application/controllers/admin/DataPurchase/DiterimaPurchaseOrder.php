@@ -27,24 +27,33 @@ class DiterimaPurchaseOrder extends CI_Controller
             </script>
             ";
         } else {
-            $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
-            dpo.jumlah_order, dpo.tanggal, dpo.no_pesanan, dpo.nama_supplier, dpo.harga_barang, dpo.keterangan,
-            dpo.kode_pay_purchase, dpo.id_status, dpo.id_pegawai_order, dpo.id_barang, data_namabarang.nama_barang
-    
-            FROM data_purchase_order AS dpo
-            INNER JOIN data_namabarang ON dpo.id_barang = data_namabarang.id_barang
-            INNER JOIN data_pegawai ON dpo.id_pegawai_order = data_pegawai.id_pegawai
-            
-            WHERE dpo.id_purchase_order = $id
-            
-            ORDER BY dpo.id_purchase_order DESC")->result();
+            if ($checkPurchaseOrder->id_peralatan == 1 or $checkPurchaseOrder->id_peralatan == 2) {
+                echo "
+                <script>
+                alert('Barang Tidak Perlu Diterima');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
+            } else {
+                $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
+                dpo.jumlah_order, dpo.tanggal, dpo.no_pesanan, dpo.nama_supplier, dpo.harga_barang, dpo.keterangan,
+                dpo.kode_pay_purchase, dpo.id_status, dpo.id_pegawai_order, dpo.id_barang, data_namabarang.nama_barang
+        
+                FROM data_purchase_order AS dpo
+                INNER JOIN data_namabarang ON dpo.id_barang = data_namabarang.id_barang
+                INNER JOIN data_pegawai ON dpo.id_pegawai_order = data_pegawai.id_pegawai
+                
+                WHERE dpo.id_purchase_order = $id
+                
+                ORDER BY dpo.id_purchase_order DESC")->result();
 
-            $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
+                $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
 
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/DataPurchase/diterimaPurchaseOrder', $data);
-            $this->load->view('template/footer', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('template/sidebarAdmin', $data);
+                $this->load->view('admin/DataPurchase/diterimaPurchaseOrder', $data);
+                $this->load->view('template/footer', $data);
+            }
         }
     }
 
