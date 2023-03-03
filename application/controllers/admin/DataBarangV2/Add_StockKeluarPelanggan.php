@@ -21,7 +21,7 @@ class Add_StockKeluarPelanggan extends CI_Controller
     public function addStockKeluar($id)
     {
         $data['barangNama']  =  $this->db->query("SELECT COUNT(data_stockrincian.id_stockRincian) AS jumlahDetailBarang, data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
-        data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
+        data_stockbarang.jumlah_stockBarang, data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
 
         FROM data_stockbarang
         
@@ -36,9 +36,7 @@ class Add_StockKeluarPelanggan extends CI_Controller
 
         $checkNama= $this->BarangModelV2->checkNamaBarang($id);
 
-        $namaBarang = $checkNama->nama_barang;
-
-        if ($namaBarang == "Kabel") {
+        if ($checkNama->id_satuan == 3) {
             echo "
             <script>
             alert('Salah Input Data');history.go(-1)

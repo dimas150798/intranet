@@ -83,9 +83,9 @@
                                  Opsi
                               </button>
                               <div class="dropdown-menu text-black" style="background-color:aqua;">
-                                 <a class="dropdown-item text-black"
+                                 <!-- <a class="dropdown-item text-black"
                                     href="<?php echo base_url('admin/DataBarangV2/Add_StockRincianPelanggan/addStockRincian/' . $data['id_barang']) ?>"><i
-                                       class="bi bi-clipboard2-plus-fill"></i> Detail Barang</a>
+                                    class="bi bi-clipboard2-plus-fill"></i> Detail Barang</a> -->
                                  <a class="dropdown-item text-black"
                                     href="<?php echo base_url('admin/DataBarangV2/Add_StockKeluarKabel/addStockKeluar/' . $data['id_barang']) ?>"><i
                                        class="bi bi-dash-lg"></i> Keluar Kabel</a>

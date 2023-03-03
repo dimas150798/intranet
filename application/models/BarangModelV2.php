@@ -51,7 +51,7 @@ class BarangModelV2 extends CI_Model
                     LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
                     LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
             
-                    WHERE data_namabarang.id_peralatan = 4
+                    WHERE data_namabarang.id_peralatan = 4 OR data_namabarang.id_peralatan = 7 
             
                     GROUP BY data_namabarang.nama_barang
                     ORDER BY data_namabarang.nama_barang ASC
@@ -73,7 +73,7 @@ class BarangModelV2 extends CI_Model
                     LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
                     LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
             
-                    WHERE data_namabarang.id_peralatan = 3 
+                    WHERE data_namabarang.id_peralatan = 3 OR data_namabarang.id_peralatan = 7
             
                     GROUP BY data_namabarang.nama_barang
                     ORDER BY data_namabarang.nama_barang ASC
@@ -320,7 +320,7 @@ class BarangModelV2 extends CI_Model
     // Check Nama Barang
     public function checkNamaBarang($id_barang)
     {
-        $this->db->select('id_barang, nama_barang');
+        $this->db->select('id_barang, nama_barang, id_satuan');
         $this->db->where('id_barang', $id_barang);
 
         $this->db->limit(1);
