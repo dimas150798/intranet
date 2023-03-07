@@ -106,6 +106,14 @@ function rupiah($angka)
 
                      <div class="row justify-content-center">
                         <div class="col-sm-4 mt-3">
+                           <label for="" class="form-label text-center" style="font-weight: bold;">
+                              Keterangan :</label>
+                           <input type="text" class="form-control text-center bg-warning fw-bold" name="keterangan"
+                              id="keterangan"
+                              value="<?php echo $data->keterangan?>"
+                              readonly>
+                        </div>
+                        <div class="col-sm-4 mt-3">
                            <label for="pegawai" class="form-label text-center" style="font-weight: bold;">
                               Nama Penerima :
                               <span class="text-danger">*</span></label>

@@ -74,6 +74,13 @@ $now = date('Y-m-d H:i:s');
 
                      <div class="row justify-content-center">
                         <div class="col-sm-4 mt-3">
+                           <label for="pegawai" class="form-label" style="font-weight: bold;">
+                              Keterangan :</label>
+                           <input type="text" class="form-control text-center bg-warning fw-bold" name="keterangan" id="keterangans"
+                              value="<?php echo $data->keterangan?>"
+                              readonly>
+                        </div>
+                        <div class="col-sm-4 mt-3">
                            <label for="No Reff" class="form-label text-center" style="font-weight: bold;">
                               Nama Supplier :
                               <span class="text-danger">*</span></label>
@@ -97,6 +104,10 @@ $now = date('Y-m-d H:i:s');
                            </div>
                         </div>
 
+
+                     </div>
+
+                     <div class="row justify-content-center">
                         <div class="col-sm-4 mt-3">
                            <label for="harga_barang" class="form-label text-center" style="font-weight: bold;">
                               Harga Barang :
@@ -108,9 +119,6 @@ $now = date('Y-m-d H:i:s');
                                  class="text-white"><?php echo form_error('harga_barang'); ?></small>
                            </div>
                         </div>
-                     </div>
-
-                     <div class="row justify-content-center">
                         <div class="col-sm-4 mt-3">
                            <label for="pegawai" class="form-label text-center" style="font-weight: bold;">
                               Nama Yang Order :

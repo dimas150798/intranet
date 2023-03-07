@@ -161,7 +161,7 @@ class PurchasingModel extends CI_Model
         return $invoice;
     }
 
-    // Check Pengembalian Barang
+    // Check Pengembalian Barang 1
     public function checkPurchaseOrder($id_purchase_order)
     {
         $this->db->select('data_purchase_order.id_purchase_order, data_purchase_order.no_purchase_order, data_purchase_order.no_purchase_request,

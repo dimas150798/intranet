@@ -75,6 +75,7 @@ class AccPurchaseOrder extends CI_Controller
         $harga_barang           = $this->input->post('harga_barang');
         $id_pegawai             = $this->input->post('pegawai');
         $tanggal                = $this->input->post('tanggal');
+        $keterangan             = $this->input->post('keterangan');
 
         $dataOrder = array(
             'tanggal'           => $tanggal,

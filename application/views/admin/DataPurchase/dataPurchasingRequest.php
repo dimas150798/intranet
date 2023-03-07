@@ -97,7 +97,8 @@
 							<th width="20%">Nama Barang</th>
 							<th width="10%" class="text-center">Tanggal</th>
 							<th width="5%" class="text-center">Jumlah</th>
-							<th width="10%" class="text-center">Status</th>
+							<th width="5%" class="text-center">Keterangan</th>
+							<th width="5%" class="text-center">Status</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -131,6 +132,15 @@
 							</td>
 
 							<td class="text-center">
+								<?php if ($data['keterangan'] == null) {
+                            echo '-';
+                        } else {
+                            echo $data['keterangan'];
+                        }
+                        ?>
+							</td>
+
+							<td class="text-center">
 								<?php if ($data['id_status'] == 3) {
                             echo '<span class="badge bg-warning">REQUEST</span>';
                         } elseif ($data['id_status'] == 4) {
@@ -140,6 +150,8 @@
                         }
                         ?>
 							</td>
+
+
 
 						</tr>
 

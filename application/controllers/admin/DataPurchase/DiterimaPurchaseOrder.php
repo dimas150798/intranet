@@ -22,46 +22,55 @@ class DiterimaPurchaseOrder extends CI_Controller
     {
         $checkPurchaseOrder     = $this->PurchasingModel->checkPurchaseOrder($id);
 
-        if ($checkPurchaseOrder->id_status == 5) {
+        if ($checkPurchaseOrder->kode_pay_purchase == null) {
             echo "
             <script>
-            alert('ORDER SUDAH DITERIMA');history.go(-1)
-            document.location.href = 'tambahData';            
-            </script>
-            ";
-        } elseif ($checkPurchaseOrder->id_status == 3) {
-            echo "
-            <script>
-            alert('REQUEST BELUM DITERIMA');history.go(-1)
-            document.location.href = 'tambahData';            
-            </script>
-            ";
-        } elseif ($checkPurchaseOrder->id_status == 15) {
-            echo "
-            <script>
-            alert('ORDER SUDAH DITERIMA');history.go(-1)
+            alert('Biaya Layanan Belum Terinput');history.go(-1)
             document.location.href = 'tambahData';            
             </script>
             ";
         } else {
-            $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
-                dpo.jumlah_order, dpo.tanggal, dpo.no_pesanan, dpo.nama_supplier, dpo.harga_barang, dpo.keterangan,
-                dpo.kode_pay_purchase, dpo.id_status, dpo.id_pegawai_order, dpo.id_barang, data_namabarang.nama_barang
-        
-                FROM data_purchase_order AS dpo
-                INNER JOIN data_namabarang ON dpo.id_barang = data_namabarang.id_barang
-                INNER JOIN data_pegawai ON dpo.id_pegawai_order = data_pegawai.id_pegawai
-                
-                WHERE dpo.id_purchase_order = $id
-                
-                ORDER BY dpo.id_purchase_order DESC")->result();
+            if ($checkPurchaseOrder->id_status == 5) {
+                echo "
+                <script>
+                alert('ORDER SUDAH DITERIMA');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
+            } elseif ($checkPurchaseOrder->id_status == 3) {
+                echo "
+                <script>
+                alert('REQUEST BELUM DITERIMA');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
+            } elseif ($checkPurchaseOrder->id_status == 15) {
+                echo "
+                <script>
+                alert('ORDER SUDAH DITERIMA');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
+            } else {
+                $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
+                    dpo.jumlah_order, dpo.tanggal, dpo.no_pesanan, dpo.nama_supplier, dpo.harga_barang, dpo.keterangan,
+                    dpo.kode_pay_purchase, dpo.id_status, dpo.id_pegawai_order, dpo.id_barang, data_namabarang.nama_barang
+            
+                    FROM data_purchase_order AS dpo
+                    INNER JOIN data_namabarang ON dpo.id_barang = data_namabarang.id_barang
+                    INNER JOIN data_pegawai ON dpo.id_pegawai_order = data_pegawai.id_pegawai
+                    
+                    WHERE dpo.id_purchase_order = $id
+                    
+                    ORDER BY dpo.id_purchase_order DESC")->result();
 
-            $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
+                $data['dataPegawai'] = $this->PegawaiModel->dataPegawai();
 
-            $this->load->view('template/header', $data);
-            $this->load->view('template/sidebarAdmin', $data);
-            $this->load->view('admin/DataPurchase/diterimaPurchaseOrder', $data);
-            $this->load->view('template/footer', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('template/sidebarAdmin', $data);
+                $this->load->view('admin/DataPurchase/diterimaPurchaseOrder', $data);
+                $this->load->view('template/footer', $data);
+            }
         }
     }
 
@@ -69,7 +78,7 @@ class DiterimaPurchaseOrder extends CI_Controller
     {
         $id                         = $this->input->post('id_purchasing_order');
 
-        $data['dataOrder']  =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
+        $data['dataOrder']          =  $this->db->query("SELECT dpo.id_purchase_order, dpo.no_purchase_order, dpo.no_purchase_request,
         dpo.jumlah_order, dpo.tanggal, dpo.no_pesanan, dpo.nama_supplier, dpo.harga_barang, dpo.keterangan,
         dpo.kode_pay_purchase, dpo.id_status, dpo.id_pegawai_order, dpo.id_barang, data_namabarang.nama_barang
 
@@ -88,14 +97,15 @@ class DiterimaPurchaseOrder extends CI_Controller
         $tanggal                    = $this->input->post('tanggal');
         $jumlah_order               = $this->input->post('jumlah_order');
         $nama_barang                = $this->input->post('nama_barang');
+        $keterangan                 = $this->input->post('keterangan');
 
-        $checkPurchaseOrder         = $this->PurchasingModel->checkPurchaseOrder($id);
         $checkBarang                = $this->BarangModelV2->checkDuplicateStockBarang($idBarang);
         $checkPurchaseOrder         = $this->PurchasingModel->checkPurchaseOrder($id);
 
         $stockBarang                = $checkBarang->jumlah_stockBarang;
         $idStockBarang              = $checkBarang->id_stockBarang;
         $restock                    = $stockBarang + $jumlah_order;
+        $keterangan                 = $checkPurchaseOrder->keterangan;
 
         $dataOrder = array(
             'id_pegawai_terima'  => $id_pegawai,
@@ -136,6 +146,7 @@ class DiterimaPurchaseOrder extends CI_Controller
             'tanggal'           => $tanggal,
             'id_pegawai'        => $id_pegawai,
             'id_status'         => 14,
+            'keterangan'        => $keterangan
         );
 
         $dataStockMasukPurchase = array(
@@ -145,6 +156,7 @@ class DiterimaPurchaseOrder extends CI_Controller
             'tanggal'           => $tanggal,
             'id_pegawai'        => $id_pegawai,
             'id_status'         => 15,
+            'keterangan'        => $keterangan
         );
 
         $whereOrder = array(
