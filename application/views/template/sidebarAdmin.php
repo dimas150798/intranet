@@ -115,12 +115,12 @@
 						<div class="collapse" id="collapseLayoutsKategori" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link"
+								<!-- <a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangATK') ?>"><i
-										class="bi bi-box-seam"> ATK</i></a>
+									class="bi bi-box-seam"> ATK</i></a>
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangKantor') ?>"><i
-										class="bi bi-box-seam"> Kantor</i></a>
+										class="bi bi-box-seam"> Kantor</i></a> -->
 								<a class="nav-link"
 									href="<?php echo base_url('admin/DataBarangV2/Data_StockBarangModem') ?>"><i
 										class="bi bi-box-seam"> Aktivasi</i></a>
