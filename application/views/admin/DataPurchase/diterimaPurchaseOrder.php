@@ -2,6 +2,12 @@
 $months = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
 date_default_timezone_set("Asia/Jakarta"); # add your city to set local time zone
 $now = date('Y-m-d H:i:s');
+
+function rupiah($angka)
+{
+    $hasil = 'Rp ' . number_format($angka, 2, ",", ".");
+    return $hasil;
+}
 ?>
 
 <div id="layoutSidenav_content">
@@ -34,7 +40,7 @@ $now = date('Y-m-d H:i:s');
                         <input type="hidden" class="form-control" name="no_purchase_request" id="no_purchase_request"
                            value="<?php echo $data->no_purchase_request?>"
                            readonly>
-                        <input type="hidden" class="form-control" name="id_barang" id="id_barang"
+                        <input type="hidden" class="form-control" name="idBarang" id="idBarang"
                            value="<?php echo $data->id_barang?>"
                            readonly>
                      </div>
@@ -90,9 +96,9 @@ $now = date('Y-m-d H:i:s');
                         <div class="col-sm-4 mt-3">
                            <label for="harga_barang" class="form-label text-center" style="font-weight: bold;">
                               Harga Barang :</label>
-                           <input type="number" class="form-control text-center bg-warning fw-bold" name="harga_barang"
+                           <input type="text" class="form-control text-center bg-warning fw-bold" name="harga_barang"
                               id="harga_barang"
-                              value="<?php echo number_format($data->harga_barang, 0, ',', '.')?>"
+                              value="Rp. <?php echo number_format($data->harga_barang, 0, ",", ".")?>"
                               placeholder="Masukkan total harga..." readonly>
                         </div>
 

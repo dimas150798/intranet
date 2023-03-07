@@ -144,7 +144,7 @@
                      </td>
 
                      <td class="text-center">
-                        <?php echo number_format($data['harga_barang'], 0, ',', '.')?>
+                        <?php echo number_format($data['harga_barang'], 0, ",", ".")?>
                      </td>
 
                      <td class="text-center">
@@ -152,6 +152,8 @@
                             echo '<span class="badge bg-warning">REQUEST</span>';
                         } elseif ($data['id_status'] == 4) {
                             echo '<span class="badge bg-success">ORDER</span>';
+                        } elseif ($data['id_status'] == 15) {
+                            echo '<span class="badge bg-secondary">PURCHASE</span>';
                         } else {
                             echo '<span class="badge bg-primary">DITERIMA</span>';
                         }
