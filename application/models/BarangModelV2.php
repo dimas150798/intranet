@@ -64,7 +64,7 @@ class BarangModelV2 extends CI_Model
     public function data_StockBarangModem()
     {
         $query   = $this->db->query("SELECT data_stockbarang.jumlah_stockBarang, data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
-                    data_stockbarang.jumlah_stockMutasi, data_stockbarang.jumlah_stockBarang, 
+                    data_stockbarang.jumlah_stockMutasi, data_stockbarang.jumlah_stockBarang, data_stockbarang.jumlah_stockRusak,
                     data_stockbarang.tanggal_restock, data_stockbarang.tanggal_mutasi,
                     data_namabarang.nama_barang, COUNT(data_stockrincian.id_stockRincian) As jumlahRincian, data_stockrincian.tanggal
             
@@ -168,6 +168,28 @@ class BarangModelV2 extends CI_Model
         
         ORDER BY data_namabarang.nama_barang ASC
         ");
+
+        return $query->result_array();
+    }
+
+    // Menampilkan data detail barang
+    public function data_DetailBarang()
+    {
+        $query   = $this->db->query("SELECT data_stockrincian.id_stockRincian, data_stockrincian.kode_barang, 
+            data_stockrincian.id_stockBarang, data_stockrincian.jumlah, data_stockrincian.tanggal, data_stockrincian.id_status, 
+            data_stockrincian.id_pegawai, data_namabarang.nama_barang, data_status.nama_status, data_pegawai.nama_pegawai, 
+            data_keadaanbarang.nama_keadaan
+    
+            FROM data_stockrincian
+            
+            LEFT JOIN data_stockbarang ON data_stockrincian.id_stockBarang = data_stockbarang.id_stockBarang
+            LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+            LEFT JOIN data_status ON data_stockrincian.id_status = data_status.id_status
+            LEFT JOIN data_pegawai ON data_stockrincian.id_pegawai = data_pegawai.id_pegawai
+            LEFT JOIN data_keadaanbarang ON data_stockrincian.id_keadaanbarang = data_keadaanbarang.id_keadaanbarang
+            
+            ORDER BY data_namabarang.nama_barang ASC
+            ");
 
         return $query->result_array();
     }
@@ -356,7 +378,7 @@ class BarangModelV2 extends CI_Model
     // Check Nama Barang Duplicate dengan id
     public function checkDuplicateStockBarang($id_barang)
     {
-        $this->db->select('id_stockBarang, id_barang, jumlah_stockMutasi, jumlah_stockBarang');
+        $this->db->select('id_stockBarang, id_barang, jumlah_stockMutasi, jumlah_stockBarang, jumlah_stockRusak');
         $this->db->where('id_barang', $id_barang);
 
         $this->db->limit(1);
@@ -457,6 +479,22 @@ class BarangModelV2 extends CI_Model
     }
 
     // Check Stock Rincian
+    public function countDetailStock($id_stockBarang)
+    {
+        $this->db->select('COUNT(id_stockBarang) AS jumlahBarang');
+        $this->db->where('id_stockBarang', $id_stockBarang);
+
+        $result = $this->db->get('data_stockrincian');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Check Stock Rincian
     public function checkStockRincianBarang($id_stockBarang)
     {
         $this->db->select('id_stockRincian, kode_barang, id_stockBarang, jumlah, tanggal, id_status, id_pegawai');
@@ -525,6 +563,28 @@ class BarangModelV2 extends CI_Model
         $this->db->where('data_aktivasi.id_stockBarang', $id_stockBarang);
         $this->db->where('data_aktivasi.id_customer', null);
         $this->db->where('data_aktivasi.id_keadaanbarang', 2);
+
+        $result = $this->db->get('data_aktivasi');
+
+        return $result->row();
+        if ($result->num_rows() > 0) {
+            return $result->row();
+        } else {
+            return false;
+        }
+    }
+
+    // Check data aktivasi id stock barang
+    public function checkDataAktivasiStockBarangRusak($id_stockBarang)
+    {
+        $this->db->select('data_aktivasi.id_aktivasi, data_aktivasi.kode_barang, data_aktivasi.id_stockBarang, data_aktivasi.jumlah_modem, data_aktivasi.Patch_Core_Hitam_UPC_Outdor,
+                                  data_aktivasi.Patch_Core_Kuning_UPC_Biru, data_aktivasi.Patch_Core_Kuning_APC_Hijau, data_aktivasi.Adaptor, data_aktivasi.tanggal, data_aktivasi.id_customer, data_namabarang.nama_barang');
+        $this->db->join('data_stockbarang', 'data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang', 'left');
+        $this->db->join('data_namabarang', 'data_stockbarang.id_barang = data_namabarang.id_barang', 'left');
+
+        $this->db->where('data_aktivasi.id_stockBarang', $id_stockBarang);
+        $this->db->where('data_aktivasi.id_customer', null);
+        $this->db->where('data_aktivasi.id_keadaanbarang', 1);
 
         $result = $this->db->get('data_aktivasi');
 
@@ -803,6 +863,23 @@ class BarangModelV2 extends CI_Model
           WHERE data_aktivasi.id_status = 12 AND data_namabarang.id_peralatan = 3 
           AND data_stockbarang.id_barang = '$id_barang' AND data_aktivasi.id_keadaanbarang = 2
           ");
+
+        return $query->result_array();
+    }
+
+    // Menampilkan data SN Barang
+    public function dataSNBarangRusak($id_barang)
+    {
+        $query   = $this->db->query("SELECT data_aktivasi.kode_barang
+              
+              FROM data_aktivasi
+              LEFT JOIN data_stockbarang ON data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang
+              LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+    
+              
+              WHERE data_aktivasi.id_status = 12 AND data_namabarang.id_peralatan = 3 
+              AND data_stockbarang.id_barang = '$id_barang' AND data_aktivasi.id_keadaanbarang = 1
+              ");
 
         return $query->result_array();
     }

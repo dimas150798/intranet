@@ -136,6 +136,8 @@ class DiterimaPurchaseOrder extends CI_Controller
             'id_stockBarang'     => $idStockBarang,
             'id_barang'          => $idBarang,
             'jumlah_stockBarang' => $jumlah_order,
+            'jumlah_stockMutasi' => 0,
+            'jumlah_stockRusak'  => 0,
             'tanggal_restock'    => $tanggal,
         );
 

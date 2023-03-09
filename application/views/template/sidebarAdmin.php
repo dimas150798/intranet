@@ -100,7 +100,7 @@
 									href="<?php echo base_url('admin/DataBarangV2/Data_BarangNama') ?>"><i
 										class="bi bi-box-seam"> Nama Barang</i></a>
 								<a class="nav-link"
-									href="<?php echo base_url('admin/DataBarangV2/Data_StockRincianNonModem') ?>"><i
+									href="<?php echo base_url('admin/DataBarangV2/Data_DetailBarang') ?>"><i
 										class="bi bi-box-seam"> Detail Barang</i></a>
 							</nav>
 						</div>

@@ -41,7 +41,8 @@
 
                      <div class="row justify-content-center">
                         <div class="col-sm-6 mt-3">
-                           <label for="nama_pegawai" class="form-label" style="font-weight: bold;"> Nama Barang :
+                           <label for="nama_pegawai" class="form-label" style="font-weight: bold;"> Nama Barang
+                              :
                               <span class="text-danger">*</span></label>
 
                            <input type="text" class="form-control text-center bg-warning fw-bold" name="nama_barang"

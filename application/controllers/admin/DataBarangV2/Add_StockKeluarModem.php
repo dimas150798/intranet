@@ -26,39 +26,40 @@ class Add_StockKeluarModem extends CI_Controller
         $checkStockRincian  = $this->BarangModelV2->checkDataAktivasiStockBarang($idStockBarang);
         $idAktivasi     = $checkStockRincian->id_aktivasi;
 
-        if ($idAktivasi == null) {
+        $checkNama= $this->BarangModelV2->checkNamaBarang($id);
+        $namaBarang = $checkNama->nama_barang;
+
+        $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, data_stockbarang.jumlah_stockBarang, 
+        data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_stockrincian.jumlah
+
+        FROM data_stockbarang
+        
+        LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
+        LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
+        
+        WHERE data_stockbarang.id_barang = '$id'
+
+        GROUP BY data_stockbarang.id_stockBarang
+
+        ")->result();
+
+        if ($namaBarang == "Adaptor 1.5A" or $namaBarang == "Adaptor 1A" or $namaBarang == "Adaptor 2A"
+        or $namaBarang == "Patch Core Hitam UPC Outdor" or $namaBarang == "Patch Core Kuning APC (Hijau)"
+        or $namaBarang == "Patch Core Kuning UPC (Biru)") {
             echo "
             <script>
-            alert('Masukkan Detail Barang');history.go(-1)
+            alert('Barang Yang Dipilih Salah');history.go(-1)
             document.location.href = 'tambahData';            
             </script>
             ";
         } else {
-            $data['barangNama']  =  $this->db->query("SELECT data_stockbarang.id_stockBarang, data_stockbarang.id_barang, data_stockbarang.jumlah_stockBarang, 
-            data_stockbarang.jumlah_stockMutasi, data_namabarang.nama_barang, data_stockrincian.jumlah
-    
-            FROM data_stockbarang
-            
-            LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
-            LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
-            
-            WHERE data_stockbarang.id_barang = '$id'
-    
-            GROUP BY data_stockbarang.id_stockBarang
-    
-            ")->result();
-
-            $checkNama= $this->BarangModelV2->checkNamaBarang($id);
-
-            $namaBarang = $checkNama->nama_barang;
-
-            if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+            if ($idAktivasi == null) {
                 echo "
-                    <script>
-                    alert('Salah Input Data');history.go(-1)
-                    document.location.href = 'tambahData';            
-                    </script>
-                    ";
+                <script>
+                alert('Masukkan Detail Barang Terlebih Dahulu');history.go(-1)
+                document.location.href = 'tambahData';            
+                </script>
+                ";
             } else {
                 $data['dataPegawai'] = $this->BarangModelV2->dataPegawai();
                 $data['dataStatus'] = $this->BarangModelV2->dataStatus();
@@ -133,15 +134,15 @@ class Add_StockKeluarModem extends CI_Controller
             );
 
             $where = array(
-                'id_stockBarang'       => $id_stockBarang
+                'id_stockBarang'        => $id_stockBarang
             );
 
             $whereAktivasi = array(
-                'kode_barang'       => $kode_barang
+                'kode_barang'           => $kode_barang
             );
 
             $whereCustomer = array(
-                'id_customer'   => $id_customer
+                'id_customer'           => $id_customer
             );
 
             if ($jumlahNow == 0) {

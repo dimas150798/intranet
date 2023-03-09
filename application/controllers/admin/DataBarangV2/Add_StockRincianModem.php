@@ -20,13 +20,13 @@ class Add_StockRincianModem extends CI_Controller
 
     public function addStockRincian($id)
     {
-        $data['barangNama']  =  $this->db->query("SELECT COUNT(data_stockrincian.id_stockRincian) AS jumlahDetailBarang, data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
-        data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan, data_stockrincian.jumlah
+        $data['barangNama']  =  $this->db->query("SELECT COUNT(data_aktivasi.id_aktivasi) AS jumlahDetailBarang, data_stockbarang.id_stockBarang, data_stockbarang.id_barang, 
+        data_stockbarang.jumlah_stockBarang, data_namabarang.nama_barang, data_namabarang.id_peralatan
 
         FROM data_stockbarang
         
         LEFT JOIN data_namabarang ON data_stockbarang.id_barang = data_namabarang.id_barang
-        LEFT JOIN data_stockrincian ON data_stockbarang.id_stockBarang = data_stockrincian.id_stockBarang
+        LEFT JOIN data_aktivasi ON data_aktivasi.id_stockBarang = data_stockbarang.id_stockBarang
         
         WHERE data_stockbarang.id_barang = '$id'
 
@@ -38,7 +38,9 @@ class Add_StockRincianModem extends CI_Controller
 
         $namaBarang = $checkNama->nama_barang;
 
-        if ($namaBarang == "Patch Core Hitam" or $namaBarang == "Patch Core Kuning") {
+        if ($namaBarang == "Adaptor 1.5A" or $namaBarang == "Adaptor 1A" or $namaBarang == "Adaptor 2A"
+        or $namaBarang == "Patch Core Hitam UPC Outdor" or $namaBarang == "Patch Core Kuning APC (Hijau)"
+        or $namaBarang == "Patch Core Kuning UPC (Biru)") {
             echo "
             <script>
             alert('Tidak Perlu Input Detail Barang');history.go(-1)
@@ -70,6 +72,27 @@ class Add_StockRincianModem extends CI_Controller
         $id_barang              = $this->input->post('id_barang');
         $jumlahDetailBarang     = $this->input->post('jumlahDetailBarang');
 
+        $checkTotalBarang = $this->BarangModelV2->checkDuplicateStockBarang($id_barang);
+        $checkSNBarang = $this->BarangModelV2->checkDataAktivasi($kode_barang);
+        $checkStockRincian = $this->BarangModelV2->countDetailStock($id_stockBarang);
+
+        // melihat SN pada modem
+        $SN_Modem       = $checkSNBarang->kode_barang;
+
+        // melihat stock barang, stock mutasi dan stock barang rusak
+        $StockBarang    = $checkTotalBarang->jumlah_stockBarang;
+        $StockMutasi    = $checkTotalBarang->jumlah_stockMutasi;
+        $StockRusak     = $checkTotalBarang->jumlah_stockRusak;
+
+        // menjumlahkan stock barang, stock mutasi dan stock barang rusak
+        $JumlahStockAll = $StockBarang + $StockMutasi + $StockRusak;
+
+        // melihat jumlah stock pada detail barang
+        $StockDetailAll = $checkStockRincian->jumlahBarang;
+
+        // menjumlahkan data aktivasi dengan detail barang (cache)
+        $jumlahKeseluruhanBarang = $jumlahDetailBarang + $StockDetailAll;
+
         $dataAktivasi = array(
                 'kode_barang'       => $kode_barang,
                 'id_stockBarang'    => $id_stockBarang,
@@ -87,15 +110,6 @@ class Add_StockRincianModem extends CI_Controller
             </script>
             ";
         } else {
-            $checkTotalBarang = $this->BarangModelV2->checkDuplicateStockBarang($id_barang);
-            $checkSNBarang = $this->BarangModelV2->checkDataAktivasi($kode_barang);
-
-            $SN_Modem = $checkSNBarang->kode_barang;
-
-            $StockBarang = $checkTotalBarang->jumlah_stockBarang;
-            $StockMutasi = $checkTotalBarang->jumlah_stockMutasi;
-            $JumlahStockAll = $StockBarang + $StockMutasi;
-
             if ($SN_Modem != null) {
                 echo "
                 <script>
@@ -104,7 +118,7 @@ class Add_StockRincianModem extends CI_Controller
                 </script>
                 ";
             } else {
-                if ($jumlahDetailBarang >= $JumlahStockAll) {
+                if ($jumlahKeseluruhanBarang >= $JumlahStockAll) {
                     echo "
                     <script>
                     alert('Data Yang Dimasukkan Melebihi Stock Yang Ada');history.go(-1)
